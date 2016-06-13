@@ -14,6 +14,18 @@ public class BeanConfig {
 		return new LongIdGenerator();
 	}
 	
+//	@Bean
+//	public EmbeddedServletContainerCustomizer containerCustomizer() {
+//		return new MyCustomizer();
+//	}
+//
+//	private static class MyCustomizer implements EmbeddedServletContainerCustomizer {
+//		@Override
+//		public void customize(ConfigurableEmbeddedServletContainer container) {
+//			container.addErrorPages(new ErrorPage(HttpStatus.BAD_REQUEST, "/400"));
+//		}
+//	}
+
 }
 
 
