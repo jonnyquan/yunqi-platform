@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.yunqi.apis.user.model.Account;
 import com.yunqi.apis.user.service.AccountService;
 
-@RestController("/user")
+@RestController
+@RequestMapping("/user")
 public class UserController {
 	
 	@Autowired  //数据库服务类
