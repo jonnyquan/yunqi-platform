@@ -75,7 +75,7 @@ public class SimpleFilterInvocationSecurityMetadataSource implements FilterInvoc
 
 		while (ite.hasNext()) {
 			String resURL = ite.next();
-			System.out.println(requestUrl);
+//			System.out.println(requestUrl);
 			if (resURL.equals(requestUrl)) {
 				return resourceMap.get(resURL);
 			}
