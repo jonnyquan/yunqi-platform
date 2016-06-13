@@ -11,9 +11,9 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.util.Assert;
 
 import com.yunqi.core.dao.IGenericDao;
+import com.yunqi.core.entity.BaseEntity;
+import com.yunqi.core.entity.Page;
 import com.yunqi.core.id.IdGenerator;
-import com.yunqi.core.model.BaseEntity;
-import com.yunqi.core.model.Page;
 
 /**
  * @author zhangguosheng

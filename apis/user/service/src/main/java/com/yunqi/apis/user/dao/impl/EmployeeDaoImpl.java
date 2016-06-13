@@ -4,7 +4,7 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import com.yunqi.apis.user.dao.EmployeeDao;
-import com.yunqi.apis.user.model.Employee;
+import com.yunqi.apis.user.domain.Employee;
 import com.yunqi.core.dao.GenericDao;
 
 @Service("employeeDao")

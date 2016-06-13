@@ -1,4 +1,4 @@
-package com.yunqi.apis.user.model.enums;
+package com.yunqi.apis.user.domain.enums;
 
 /**
  * 状态枚举

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yunqi.apis.user.model.Account;
+import com.yunqi.apis.user.domain.Account;
 import com.yunqi.apis.user.service.AccountService;
 
 @RestController

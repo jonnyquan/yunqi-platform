@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 
-import com.yunqi.apis.user.model.Role;
+import com.yunqi.apis.user.domain.Role;
 import com.yunqi.core.dao.IGenericDao;
 
 public interface RoleDao extends IGenericDao<Role, ObjectId>{

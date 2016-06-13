@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.springframework.data.mongodb.core.query.Query;
 
-import com.yunqi.core.model.BaseEntity;
-import com.yunqi.core.model.Page;  
+import com.yunqi.core.entity.BaseEntity;
+import com.yunqi.core.entity.Page;  
 
 public interface IGenericDao<T extends BaseEntity<T>, PK extends Serializable>{
 	

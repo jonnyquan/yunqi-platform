@@ -3,8 +3,8 @@ package com.yunqi.core.service;
 import java.io.Serializable;
 import java.util.List;
 
-import com.yunqi.core.model.BaseEntity;
-import com.yunqi.core.model.Page;
+import com.yunqi.core.entity.BaseEntity;
+import com.yunqi.core.entity.Page;
 
 /**
  * @author zhangguosheng

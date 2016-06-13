@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yunqi.apis.user.dao.SysConfigDao;
-import com.yunqi.apis.user.model.SysConfig;
+import com.yunqi.apis.user.domain.SysConfig;
 import com.yunqi.apis.user.service.SysConfigService;
 import com.yunqi.core.dao.IGenericDao;
 import com.yunqi.core.service.GenericService;

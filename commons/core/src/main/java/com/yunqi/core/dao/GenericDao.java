@@ -8,9 +8,9 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
+import com.yunqi.core.entity.BaseEntity;
+import com.yunqi.core.entity.Page;
 import com.yunqi.core.id.IdGenerator;
-import com.yunqi.core.model.BaseEntity;
-import com.yunqi.core.model.Page;
 import com.yunqi.core.util.ReflectionUtils;
 
 public abstract class GenericDao<T extends BaseEntity<T>, PK extends Serializable> implements IGenericDao<T, PK> {

@@ -1,4 +1,4 @@
-package com.yunqi.core.model;
+package com.yunqi.core.entity;
 
 import java.io.Serializable;
 import java.util.List;

@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yunqi.apis.user.dao.DepartmentDao;
-import com.yunqi.apis.user.model.Department;
+import com.yunqi.apis.user.domain.Department;
 import com.yunqi.apis.user.service.DepartmentService;
 import com.yunqi.core.dao.IGenericDao;
 import com.yunqi.core.service.GenericService;

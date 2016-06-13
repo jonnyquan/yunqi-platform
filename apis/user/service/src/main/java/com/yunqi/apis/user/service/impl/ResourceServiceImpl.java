@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yunqi.apis.user.dao.ResourceDao;
-import com.yunqi.apis.user.model.Resource;
+import com.yunqi.apis.user.domain.Resource;
 import com.yunqi.apis.user.service.ResourceService;
 import com.yunqi.core.dao.IGenericDao;
 import com.yunqi.core.service.GenericService;

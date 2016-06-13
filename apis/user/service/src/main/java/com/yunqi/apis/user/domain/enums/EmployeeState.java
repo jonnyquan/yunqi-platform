@@ -1,10 +1,10 @@
-package com.yunqi.apis.user.model.enums;
+package com.yunqi.apis.user.domain.enums;
 
 /**
  * 状态枚举
  * @author zhangguosheng
  */
-public enum CompanyState{
+public enum EmployeeState{
 	
 	/**
 	 * 启用
@@ -21,7 +21,7 @@ public enum CompanyState{
 	
 	private String text;
 
-	private CompanyState(String text) {
+	private EmployeeState(String text) {
 		this.text = text;
 	}
 	

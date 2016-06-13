@@ -2,7 +2,7 @@ package com.yunqi.apis.user.service;
 
 import org.bson.types.ObjectId;
 
-import com.yunqi.apis.user.model.SysConfig;
+import com.yunqi.apis.user.domain.SysConfig;
 import com.yunqi.core.service.IGenericService;
 
 /**

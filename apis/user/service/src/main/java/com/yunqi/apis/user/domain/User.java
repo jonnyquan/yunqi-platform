@@ -1,4 +1,4 @@
-package com.yunqi.apis.user.model;
+package com.yunqi.apis.user.domain;
 
 import java.util.Date;
 import java.util.Set;
@@ -6,8 +6,8 @@ import java.util.Set;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.yunqi.apis.user.model.enums.UserState;
-import com.yunqi.core.model.MongoEntity;
+import com.yunqi.apis.user.domain.enums.UserState;
+import com.yunqi.core.entity.MongoEntity;
 
 /**
  * 系统用户.

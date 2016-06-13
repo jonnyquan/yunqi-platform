@@ -1,9 +1,9 @@
-package com.yunqi.apis.user.model;
+package com.yunqi.apis.user.domain;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.yunqi.apis.user.model.enums.ResourceType;
-import com.yunqi.core.model.MongoEntity;
+import com.yunqi.apis.user.domain.enums.ResourceType;
+import com.yunqi.core.entity.MongoEntity;
 
 @Document
 public class Resource extends MongoEntity<Resource>{

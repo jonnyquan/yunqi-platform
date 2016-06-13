@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import com.yunqi.apis.user.dao.AccountDao;
-import com.yunqi.apis.user.model.Account;
+import com.yunqi.apis.user.domain.Account;
 import com.yunqi.core.dao.GenericDao;
 
 @Service("accountDao")

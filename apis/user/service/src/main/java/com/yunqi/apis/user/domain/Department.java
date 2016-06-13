@@ -1,12 +1,12 @@
-package com.yunqi.apis.user.model;
+package com.yunqi.apis.user.domain;
 
 import java.util.Date;
 
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.yunqi.apis.user.model.enums.DepartmentState;
-import com.yunqi.core.model.MongoEntity;
+import com.yunqi.apis.user.domain.enums.DepartmentState;
+import com.yunqi.core.entity.MongoEntity;
 
 /**
  * 账号.

@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yunqi.apis.user.dao.RoleDao;
-import com.yunqi.apis.user.model.Role;
+import com.yunqi.apis.user.domain.Role;
 import com.yunqi.apis.user.service.RoleService;
 import com.yunqi.core.dao.IGenericDao;
 import com.yunqi.core.service.GenericService;

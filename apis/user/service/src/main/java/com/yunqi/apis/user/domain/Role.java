@@ -1,12 +1,12 @@
-package com.yunqi.apis.user.model;
+package com.yunqi.apis.user.domain;
 
 import java.util.Set;
 
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import com.yunqi.apis.user.model.enums.RoleType;
-import com.yunqi.core.model.MongoEntity;
+import com.yunqi.apis.user.domain.enums.RoleType;
+import com.yunqi.core.entity.MongoEntity;
 
 @Document
 public class Role extends MongoEntity<Role>{
