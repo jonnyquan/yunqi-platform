@@ -3,13 +3,11 @@ package com.yunqi.core.id;
 import java.net.InetAddress;
 import java.util.Random;
 
-import org.springframework.stereotype.Component;
-
 /**
  * Long型的ID生成器
  * @author zhangguosheng
  */
-@Component("idGenerator")
+//@Component("idGenerator")
 public class LongIdGenerator implements IdGenerator<Long>{
 
 	private static int counter = 0;
