@@ -1,0 +1,13 @@
+Manifest-Version: 1.0
+Implementation-Title: YUN QI
+Implementation-Version: 1.0.0-SNAPSHOT
+Archiver-Version: Plexus Archiver
+Built-By: 国圣
+Start-Class: com.yunqi.Application
+Implementation-Vendor-Id: com.yunqi
+Spring-Boot-Version: 1.3.5.RELEASE
+Created-By: Apache Maven 3.2.1
+Build-Jdk: 1.8.0_25
+Implementation-Vendor: Pivotal Software, Inc.
+Main-Class: org.springframework.boot.loader.JarLauncher
+
