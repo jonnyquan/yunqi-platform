@@ -1,4 +1,4 @@
-package com.yunqi.apis.user.controller;
+package com.yunqi.apis.user.exception;
 
 import javax.servlet.http.HttpServletRequest;
 
