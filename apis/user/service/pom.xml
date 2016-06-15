@@ -36,16 +36,25 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+<!-- 		
 	    <dependency>
 	        <groupId>org.springframework.boot</groupId>
 	        <artifactId>spring-boot-devtools</artifactId>
 	        <optional>true</optional>
 	    </dependency>
+	     -->
 		<dependency>
 			<groupId>com.yunqi.commons</groupId>
 			<artifactId>yunqi-commons-core</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
+
+		<dependency>
+			<groupId>com.yunqi.apis.user</groupId>
+			<artifactId>yunqi-user-api</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		
 	</dependencies>
 	
 	<!-- 插件配置 -->

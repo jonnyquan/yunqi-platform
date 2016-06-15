@@ -1,4 +1,4 @@
-package com.yunqi.apis.user.health;
+package com.yunqi.apis.user.endpoints;
 
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
