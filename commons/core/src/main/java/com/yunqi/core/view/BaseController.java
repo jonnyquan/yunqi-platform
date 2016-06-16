@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.yunqi.core.view.dto.ExceptionDto;
+import com.yunqi.common.view.dto.ExceptionDto;
 
 public class BaseController {  
 	

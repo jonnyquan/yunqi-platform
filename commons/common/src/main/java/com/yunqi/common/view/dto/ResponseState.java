@@ -1,4 +1,4 @@
-package com.yunqi.core.view.dto;
+package com.yunqi.common.view.dto;
 
 public enum ResponseState {
 

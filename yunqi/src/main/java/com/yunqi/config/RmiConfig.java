@@ -1,21 +1,21 @@
 package com.yunqi.config;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import com.yunqi.apis.user.api.UserApi;
+import com.yunqi.core.view.HttpServiceExporter;
 
 @Configuration
 public class RmiConfig {
-	
-//	@Autowired
-//	private UserController userService;
-//	
-//    @Bean  
-//    public HttpServiceExporter initRmiServiceExporter(){  
-//    	HttpServiceExporter exporter = new HttpServiceExporter();  
-//        exporter.setServiceInterface(UserApi.class);  
-//        exporter.setServiceName("rmiUserService");  
-//        exporter.setService(userService);  
-//        exporter.setServicePort(6666);  
-//        return exporter;  
-//    }  
-	
+
+    @Bean(name="userApi")
+    public UserApi userApi(){  
+    	HttpServiceExporter exporter = new HttpServiceExporter();  
+        exporter.setServiceInterface(UserApi.class);  
+        exporter.setServiceUrl("http://127.0.0.1:8080/user"); 
+        UserApi userApi = (UserApi) exporter.getService();
+        return userApi;
+    }  
+
 }

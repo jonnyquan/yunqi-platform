@@ -10,11 +10,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.yunqi.apis.user.api.UserApi;
+import com.yunqi.apis.user.api.dto.AccountDto;
+
 @Controller
 public class TestController {
 	
 	@Autowired  
 	MongoTemplate template; 
+	
+//	@Autowired
+	private UserApi userApi;
 
 	@Value("${application.message:Hello World}")
 	private String message = "Hello World";
@@ -23,6 +29,10 @@ public class TestController {
 	public String welcome(Map<String, Object> model) {
 		model.put("time", new Date());
 		model.put("message", this.message);
+		AccountDto ad = new AccountDto();
+		ad.setName("zhangs");
+		ad.setAge(14);
+		userApi.getAccount(ad);
 		return "welcome";
 	}
 

@@ -9,9 +9,9 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.yunqi.core.view.dto.ExceptionDto;
-import com.yunqi.core.view.dto.ResponseDto;
-import com.yunqi.core.view.dto.ResponseState;
+import com.yunqi.common.view.dto.ExceptionDto;
+import com.yunqi.common.view.dto.ResponseDto;
+import com.yunqi.common.view.dto.ResponseState;
 
 public class BaseMessageConverter extends MappingJackson2HttpMessageConverter{
 
