@@ -25,6 +25,7 @@ public class UserController extends BaseController implements UserApi{
 		return "Hello	World!";
 	}
 	
+	@Override
 	@ResponseBody
 	@RequestMapping(path="/getAccount", method = RequestMethod.POST)
 	public AccountDto getAccount(@RequestBody AccountDto ac){
