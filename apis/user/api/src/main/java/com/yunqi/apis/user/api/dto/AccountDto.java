@@ -1,4 +1,4 @@
-package com.yunqi.apis.user.dto;
+package com.yunqi.apis.user.api.dto;
 
 import java.io.Serializable;
 

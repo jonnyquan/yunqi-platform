@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yunqi.apis.user.api.UserApi;
+import com.yunqi.apis.user.api.dto.AccountDto;
 import com.yunqi.apis.user.domain.Account;
-import com.yunqi.apis.user.dto.AccountDto;
 import com.yunqi.apis.user.service.AccountService;
 import com.yunqi.core.view.BaseController;
 
@@ -27,10 +27,14 @@ public class UserController extends BaseController implements UserApi{
 	
 	@ResponseBody
 	@RequestMapping(path="/getAccount", method = RequestMethod.POST)
-	public Account getAccount(@RequestBody AccountDto ac){
+	public AccountDto getAccount(@RequestBody AccountDto ac){
 		Account account = accountService.findByAccountId("admin");
-		int a = 1/0;
-		return account;
+		
+		AccountDto ad = new AccountDto();
+		ad.setName(account.getAccountId());
+		ad.setAge(13);
+		
+		return ad;
 	}
 
 }
