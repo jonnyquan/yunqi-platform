@@ -19,7 +19,7 @@ public class TestController {
 	@Autowired  
 	MongoTemplate template; 
 	
-//	@Autowired
+	@Autowired
 	private UserApi userApi;
 
 	@Value("${application.message:Hello World}")
@@ -32,7 +32,7 @@ public class TestController {
 		AccountDto ad = new AccountDto();
 		ad.setName("zhangs");
 		ad.setAge(14);
-		userApi.getAccount(ad);
+		AccountDto ad1 = userApi.getAccount(ad);
 		return "welcome";
 	}
 

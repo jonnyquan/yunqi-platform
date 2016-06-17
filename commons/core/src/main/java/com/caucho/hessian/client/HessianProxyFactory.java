@@ -76,6 +76,7 @@ import com.caucho.hessian.io.HessianRemoteObject;
 import com.caucho.hessian.io.HessianRemoteResolver;
 import com.caucho.hessian.io.SerializerFactory;
 import com.caucho.services.client.ServiceProxyFactory;
+import com.yunqi.core.view.remoting.HttpProxy;
 
 /**
  * Factory for creating Hessian client stubs.  The returned stub will
@@ -450,7 +451,8 @@ public class HessianProxyFactory implements ServiceProxyFactory, ObjectFactory {
       throw new NullPointerException("api must not be null for HessianProxyFactory.create()");
     InvocationHandler handler = null;
 
-    handler = new HessianProxy(url, this, api);
+//  handler = new HessianProxy(url, this, api);
+    handler = new HttpProxy(url, this, api);
 
     return Proxy.newProxyInstance(loader,
                                   new Class[] { api,
