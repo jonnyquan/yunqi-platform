@@ -15,9 +15,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import com.yunqi.model.Account;
-import com.yunqi.model.Role;
-import com.yunqi.service.AccountService;
+import com.yunqi.apis.user.api.AccountApi;
+import com.yunqi.apis.user.api.dto.AccountDto;
+import com.yunqi.apis.user.api.dto.RoleDto;
 
 @Component
 public class SimpleUserDetailsService implements UserDetailsService {
@@ -25,15 +25,15 @@ public class SimpleUserDetailsService implements UserDetailsService {
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired  //数据库服务类
-	private AccountService accountService;
+	private AccountApi accountApi;
 	
 	@Override
 	public UserDetails loadUserByUsername(String accountId) throws UsernameNotFoundException {
 		
-		Account account = accountService.findByAccountId(accountId);
-		Set<Role> roles = account.getUser().getRoles();
+		AccountDto account = accountApi.findByAccountId(accountId);
+		Set<RoleDto> roles = account.getUser().getRoles();
 		Collection<GrantedAuthority> auths = new ArrayList<>();
-		for(Role r : roles){
+		for(RoleDto r : roles){
 			SimpleGrantedAuthority auth = new SimpleGrantedAuthority(r.getName());
 			auths.add(auth);
 		}

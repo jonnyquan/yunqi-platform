@@ -1,28 +1,58 @@
 package com.yunqi.apis.user.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yunqi.apis.user.api.UserApi;
-import com.yunqi.apis.user.api.dto.AccountDto;
-import com.yunqi.apis.user.domain.Account;
-import com.yunqi.apis.user.service.AccountService;
+import com.yunqi.apis.user.api.dto.ResourceDto;
+import com.yunqi.apis.user.api.dto.RoleDto;
+import com.yunqi.apis.user.api.dto.UserDto;
+import com.yunqi.apis.user.domain.Resource;
+import com.yunqi.apis.user.domain.Role;
+import com.yunqi.apis.user.domain.User;
 import com.yunqi.core.view.BaseController;
 
 @RestController
 public class UserController extends BaseController implements UserApi{
 	
-	@Autowired  //数据库服务类
-	private AccountService accountService;
+//	public static User dtoToDomain(UserDto dto){
+//		if(dto==null) return null;
+//		return null;
+//	}
 	
-	@Override
-	public AccountDto getAccount(@RequestBody AccountDto ac){
-		Account account = accountService.findByAccountId("admin");
-		AccountDto ad = new AccountDto();
-		ad.setName(account.getAccountId());
-		ad.setAge(13);
-		return ad;
+	public static UserDto domainToDto(User domain){
+		if(domain==null) return null;
+		UserDto dto = new UserDto();
+		dto.setEmail(domain.getEmail());
+		dto.setLastLoginIp(domain.getLastLoginIp());
+		dto.setLastLoginTime(domain.getLastLoginTime());
+		dto.setName(domain.getName());
+		
+		Set<Resource> resourceS = domain.getResource();
+		if(resourceS!=null && resourceS.size()>0){
+			Set<ResourceDto> resourceDtoS = new HashSet<>();
+			for(Resource r : resourceS){
+				ResourceDto resourceDto = ResourceController.domainToDto(r);
+				resourceDtoS.add(resourceDto);
+			}
+			dto.setResource(resourceDtoS);
+		}
+		
+		Set<Role> roleS = domain.getRoles();
+		if(roleS!=null && roleS.size()>0){
+			Set<RoleDto> roleDtoS = new HashSet<>();
+			for(Role r : roleS){
+				RoleDto roleDto = RoleController.domainToDto(r);
+				roleDtoS.add(roleDto);
+			}
+			dto.setRoles(roleDtoS);
+		}
+		
+		if(domain.getState()!=null) dto.setState(domain.getState().name());
+		dto.setTel(domain.getTel());
+		return dto;
 	}
 
 }

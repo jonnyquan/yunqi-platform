@@ -9,7 +9,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 
 import com.caucho.hessian.client.HessianProxyFactory;
-import com.yunqi.apis.user.api.UserApi;
+import com.yunqi.apis.user.api.AccountApi;
+import com.yunqi.apis.user.api.ResourceApi;
+import com.yunqi.apis.user.api.RoleApi;
 
 @Configuration
 public class RmiConfig implements EnvironmentAware{
@@ -20,17 +22,31 @@ public class RmiConfig implements EnvironmentAware{
 	public void setEnvironment(Environment env) {
 		this.rpr = new RelaxedPropertyResolver(env, "remoting.");
 	}
-
-	@Bean(name = "userApi")
-	public UserApi userApi() {
-		UserApi api = null;
+	
+	private Object createApi(Class<?> clazz){
+		Object api = null;
 		HessianProxyFactory factory = new HessianProxyFactory();
 		try {
-			api = (UserApi) factory.create(UserApi.class, rpr.getProperty("user.url"));
+			api = factory.create(clazz, rpr.getProperty("user.url"));
 		} catch (MalformedURLException e) {
 			e.printStackTrace();
 		}
 		return api;
+	}
+
+	@Bean(name = "accountApi")
+	public AccountApi accountApi() {
+		return (AccountApi) createApi(AccountApi.class);
+	}
+	
+	@Bean(name = "roleApi")
+	public RoleApi roleApi() {
+		return (RoleApi) createApi(RoleApi.class);
+	}
+	
+	@Bean(name = "resourceApi")
+	public ResourceApi resourceApi() {
+		return (ResourceApi) createApi(ResourceApi.class);
 	}
 
 }

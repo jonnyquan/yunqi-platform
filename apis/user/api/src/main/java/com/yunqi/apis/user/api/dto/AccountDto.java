@@ -6,20 +6,34 @@ public class AccountDto implements Serializable{
 
 	private static final long serialVersionUID = 5247382650520281531L;
 	
-	private String name;
-	private Integer age;
+	private String accountId;
 	
-	public String getName() {
-		return name;
+	private String password;
+	
+	private UserDto user;
+
+	public String getAccountId() {
+		return accountId;
 	}
-	public void setName(String name) {
-		this.name = name;
+
+	public void setAccountId(String accountId) {
+		this.accountId = accountId;
 	}
-	public Integer getAge() {
-		return age;
+
+	public String getPassword() {
+		return password;
 	}
-	public void setAge(Integer age) {
-		this.age = age;
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public UserDto getUser() {
+		return user;
+	}
+
+	public void setUser(UserDto user) {
+		this.user = user;
 	}
 	
 }

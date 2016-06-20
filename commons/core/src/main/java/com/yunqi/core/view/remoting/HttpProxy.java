@@ -46,9 +46,11 @@ public class HttpProxy extends HessianProxy{
 		OutputStream out = null;
 		try {
 			out = conn.getOutputStream();
-			for(Object o : args){
-				String json = BeanSerializeUtil.convertToJson(o);
-				out.write(json.getBytes());
+			if(args!=null && args.length>0){
+				for(Object o : args){
+					String json = BeanSerializeUtil.convertToJson(o);
+					out.write(json.getBytes());
+				}	
 			}
 			out.flush();
 		} catch (Exception e1) {

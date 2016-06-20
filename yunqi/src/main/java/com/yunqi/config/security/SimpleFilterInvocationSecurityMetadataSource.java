@@ -18,10 +18,10 @@ import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Component;
 
-import com.yunqi.model.Resource;
-import com.yunqi.model.Role;
-import com.yunqi.service.ResourceService;
-import com.yunqi.service.RoleService;
+import com.yunqi.apis.user.api.ResourceApi;
+import com.yunqi.apis.user.api.RoleApi;
+import com.yunqi.apis.user.api.dto.ResourceDto;
+import com.yunqi.apis.user.api.dto.RoleDto;
 
 @Component
 public class SimpleFilterInvocationSecurityMetadataSource implements FilterInvocationSecurityMetadataSource {
@@ -29,10 +29,10 @@ public class SimpleFilterInvocationSecurityMetadataSource implements FilterInvoc
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	@Autowired
-	private ResourceService resourceService;
+	private ResourceApi resourceApi;
 	
 	@Autowired
-	private RoleService roleService;
+	private RoleApi roleApi;
 
 	private static Map<String, Collection<ConfigAttribute>> resourceMap = null;
 
@@ -41,12 +41,12 @@ public class SimpleFilterInvocationSecurityMetadataSource implements FilterInvoc
 	private void loadResourceDefine() {
 		if (resourceMap == null) {
 			resourceMap = new HashMap<String, Collection<ConfigAttribute>>();
-			List<Resource> resources = resourceService.findAll();
+			List<ResourceDto> resources = resourceApi.findAll();
 			// 加载资源对应的权限
-			for (Resource resource : resources) {
-				List<Role> roles = roleService.findRoleBySource(resource.getId());
+			for (ResourceDto resource : resources) {
+				List<RoleDto> roles = roleApi.findRoleBySource(resource.getId());
 				Collection<ConfigAttribute> auths = new ArrayList<>();
-				for(Role r : roles){
+				for(RoleDto r : roles){
 					ConfigAttribute auth = new SecurityConfig(r.getName());
 					auths.add(auth);
 				}
