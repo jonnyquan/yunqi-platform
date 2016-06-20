@@ -7,6 +7,8 @@ import java.lang.reflect.Method;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.caucho.hessian.client.HessianProxy;
 import com.caucho.hessian.client.HessianProxyFactory;
 
@@ -21,8 +23,23 @@ public class HttpProxy extends HessianProxy{
 	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		
-		HttpURLConnection conn = (HttpURLConnection) this.getURL().openConnection();
+		RequestMapping crm = method.getDeclaringClass().getAnnotation(RequestMapping.class);
+		if(crm ==null){
+			throw new Exception("can't find api content, please set @RequestMapping at api class.");
+		}
+		String content = crm.value()[0];
+		
+		RequestMapping mrm = method.getAnnotation(RequestMapping.class);
+		if(mrm ==null){
+			throw new Exception("can't find api path, please set @RequestMapping at api method.");
+		}
+		String path = mrm.path()[0];
+		
+		URL url = new URL(this.getURL().toString() + content + path);
+		
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setDoOutput(true);
+
 		conn.setRequestProperty("Accept-Charset", "utf-8");
 		conn.setRequestProperty("Content-Type", "application/json");
 
