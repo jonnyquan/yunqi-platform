@@ -77,7 +77,7 @@ public class HttpProxy extends HessianProxy{
 				reader.close();
 			}
 		}
-
+//		method.getGenericReturnType();
         Object value = null;
         if(sb.length()>0){
         	value = BeanSerializeUtil.convertToBean(method.getReturnType(), sb.toString());
