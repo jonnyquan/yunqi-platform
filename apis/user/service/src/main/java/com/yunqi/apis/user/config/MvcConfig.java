@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
@@ -28,5 +30,19 @@ public class MvcConfig extends WebMvcConfigurationSupport {
 		converters.add(customJackson2HttpMessageConverter());
 		super.addDefaultHttpMessageConverters(converters);
 	}
-	
+
+	@Override
+	protected void addInterceptors(InterceptorRegistry registry) {
+		SimpleHandlerInterceptorAdapter interceptor = new SimpleHandlerInterceptorAdapter();
+		registry.addInterceptor(interceptor);
+		super.addInterceptors(registry);
+	}
+
+	@Override
+	protected void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+		SimpleMethodArgumentsResolver resolver = new SimpleMethodArgumentsResolver();
+		argumentResolvers.add(resolver);
+		super.addArgumentResolvers(argumentResolvers);
+	}
+
 }
