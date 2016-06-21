@@ -11,6 +11,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
 import com.yunqi.core.view.BaseMessageConverter;
+import com.yunqi.core.view.SimpleHandlerInterceptorAdapter;
+import com.yunqi.core.view.SimpleMethodArgumentsResolver;
 
 @Configuration
 public class MvcConfig extends WebMvcConfigurationSupport {

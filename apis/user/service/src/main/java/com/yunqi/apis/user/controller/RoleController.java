@@ -11,7 +11,7 @@ import com.yunqi.apis.user.api.RoleApi;
 import com.yunqi.apis.user.api.dto.RoleDto;
 import com.yunqi.apis.user.domain.Role;
 import com.yunqi.apis.user.service.RoleService;
-import com.yunqi.common.view.dto.FormModel;
+import com.yunqi.common.view.dto.ContentParam;
 import com.yunqi.core.view.BaseController;
 
 @RestController
@@ -37,7 +37,7 @@ public class RoleController extends BaseController implements RoleApi{
 	}
 
 	@Override
-	public List<RoleDto> findRoleBySource(@FormModel("id") String id) {
+	public List<RoleDto> findRoleBySource(@ContentParam(name = "id") String id) {
 		ObjectId oId = new ObjectId(id);
 		List<Role> rs = service.findRoleBySource(oId);
 		List<RoleDto> rds = null;

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.caucho.hessian.client.HessianProxy;
 import com.caucho.hessian.client.HessianProxyFactory;
+import com.yunqi.common.view.dto.ContentParam;
 import com.yunqi.common.view.dto.ExceptionDto;
 import com.yunqi.common.view.dto.ResponseState;
 
@@ -46,16 +48,22 @@ public class HttpProxy extends HessianProxy{
 
 		conn.setRequestProperty("Accept-Charset", "utf-8");
 		conn.setRequestProperty("Content-Type", "application/json");
-
+		
+		StringBuffer sbOut = new StringBuffer("{");
+		Parameter[] ps = method.getParameters();
+		if(args!=null && args.length>0 && ps!=null && ps.length>0){
+			for(int i=0; i<ps.length && i<args.length; i++){
+				ContentParam cp = ps[i].getAnnotation(ContentParam.class);
+				Object o = args[i];
+				String json = BeanSerializeUtil.convertToJson(o);
+				sbOut.append(" \"" + cp.name() + "\": ").append(json);
+			}
+		}
+		sbOut.append("}");
 		OutputStream out = null;
 		try {
 			out = conn.getOutputStream();
-			if(args!=null && args.length>0){
-				for(Object o : args){
-					String json = BeanSerializeUtil.convertToJson(o);
-					out.write(json.getBytes());
-				}	
-			}
+			out.write(sbOut.toString().getBytes());
 			out.flush();
 		} catch (Exception e1) {
 			e1.printStackTrace();
