@@ -9,6 +9,7 @@ import com.yunqi.apis.user.api.dto.UserDto;
 import com.yunqi.apis.user.domain.Account;
 import com.yunqi.apis.user.domain.User;
 import com.yunqi.apis.user.service.AccountService;
+import com.yunqi.common.view.dto.ContentParam;
 import com.yunqi.core.view.BaseController;
 
 @RestController
@@ -37,7 +38,7 @@ public class AccountController extends BaseController implements AccountApi{
 	}
 
 	@Override
-	public AccountDto findByAccountId(String accountId) {
+	public AccountDto findByAccountId(@ContentParam(name="accountId") String accountId) {
 		
 		Account account = service.findByAccountId(accountId);
 		if(account==null) return null;

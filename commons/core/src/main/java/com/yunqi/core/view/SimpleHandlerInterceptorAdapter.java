@@ -52,7 +52,6 @@ public class SimpleHandlerInterceptorAdapter extends HandlerInterceptorAdapter{
 			MethodParameter[] ps = method.getMethodParameters();
 			
 			for(MethodParameter mp : ps){
-				
 				ContentParam cp = mp.getParameterAnnotation(ContentParam.class);
 				Object value = jsonObj.get(cp.name());
 				Object o = null;
