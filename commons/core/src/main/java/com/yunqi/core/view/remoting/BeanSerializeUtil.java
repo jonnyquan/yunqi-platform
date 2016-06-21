@@ -36,8 +36,9 @@ public class BeanSerializeUtil {
 		T obj = null;
 		try {
 			JSONObject jsonObj = JSONObject.fromObject(json);
-			JSONObject result = (JSONObject) jsonObj.get("result");
-			obj = objectMapper.readValue(result.toString(), clazz);
+			Object o = jsonObj.get("result");
+//			JSONObject result = (JSONObject) jsonObj.get("result");
+			obj = objectMapper.readValue(o.toString(), clazz);
 		} catch (JsonParseException e) {
 			e.printStackTrace();
 		} catch (JsonMappingException e) {
