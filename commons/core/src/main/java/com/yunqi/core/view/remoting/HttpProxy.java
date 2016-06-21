@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.caucho.hessian.client.HessianProxy;
 import com.caucho.hessian.client.HessianProxyFactory;
+import com.yunqi.common.view.dto.ExceptionDto;
+import com.yunqi.common.view.dto.ResponseState;
+
+import net.sf.json.JSONObject;
 
 public class HttpProxy extends HessianProxy{
 
@@ -77,10 +81,20 @@ public class HttpProxy extends HessianProxy{
 				reader.close();
 			}
 		}
-//		method.getGenericReturnType();
+
+		JSONObject jsonObj = JSONObject.fromObject(sb.toString());
+		if(jsonObj==null) return null;
+		
+		Object state = jsonObj.get("state");
+		Object data = jsonObj.get("result");
+		
         Object value = null;
-        if(sb.length()>0){
-        	value = BeanSerializeUtil.convertToBean(method.getReturnType(), sb.toString());
+        if(ResponseState.SUCCESS.name().equals(state)){
+        	value = BeanSerializeUtil.convertToBean(method.getGenericReturnType(), data);
+        }else{
+        	value = BeanSerializeUtil.convertToError(data);
+        	ExceptionDto e = (ExceptionDto) value;
+        	throw new Exception(e.getMsg());
         }
         
 		return value;
