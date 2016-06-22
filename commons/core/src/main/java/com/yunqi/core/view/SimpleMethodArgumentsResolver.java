@@ -10,19 +10,22 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 import com.yunqi.common.view.dto.ContentParam;
+import com.yunqi.core.util.ClassUtil;
 
 public class SimpleMethodArgumentsResolver implements HandlerMethodArgumentResolver {
 	
 	public boolean supportsParameter(MethodParameter parameter) {
-		return parameter.hasParameterAnnotation(ContentParam.class);
+//		return parameter.hasParameterAnnotation(ContentParam.class);
+		return ClassUtil.hasParameterAnnotation(parameter, ContentParam.class);
 	}
 
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 		
 		Map<String, Object> map = (Map<String, Object>) webRequest.getAttribute(SimpleHandlerInterceptorAdapter._CONTENT_PARAM_, RequestAttributes.SCOPE_REQUEST);
-		ContentParam cp = parameter.getParameterAnnotation(ContentParam.class);
+//		ContentParam cp = parameter.getParameterAnnotation(ContentParam.class);
+		ContentParam cp = ClassUtil.getParameterAnnotation(parameter, ContentParam.class);
 		String key = cp.name();
-		
+
 		return map.get(key);
 	}
 	
