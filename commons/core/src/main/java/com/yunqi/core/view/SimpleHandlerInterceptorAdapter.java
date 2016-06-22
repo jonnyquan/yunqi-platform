@@ -72,4 +72,89 @@ public class SimpleHandlerInterceptorAdapter extends HandlerInterceptorAdapter{
 		return super.preHandle(request, response, handler);
 	}
 
+//	@Override
+//	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+//		
+//		HandlerMethod handlerMethod = (HandlerMethod) handler;
+//		Method method = handlerMethod.getMethod();
+//		Class<?> clazz = method.getDeclaringClass().getInterfaces()[0];
+//
+//		int size = method.getParameters().length;
+//
+//		Method iMethod = null;
+//		if(size>0){
+//			Class<?>[] is = new Class<?>[size];
+//			for(int i=0; i<size; i++){
+//				Parameter p = method.getParameters()[i];
+//				is[i] = p.getType();
+//			}
+//			iMethod = clazz.getMethod(handlerMethod.getMethod().getName(), is);
+//		}else{
+//			iMethod = clazz.getMethod(handlerMethod.getMethod().getName());
+//		}
+//		
+//		Parameter[] ps = iMethod.getParameters();
+//		
+//		boolean hasContentParam = false;
+//		
+//		if(ps!=null && ps.length>0){
+//			for(Parameter p : ps){
+//				ContentParam cp = p.getAnnotation(ContentParam.class);
+//				if(cp!=null){
+//					hasContentParam = true;
+//					break;
+//				}
+//			}
+//		}
+//		
+//		if(!hasContentParam){
+//			return super.preHandle(request, response, handler);
+//		}
+//		
+//		StringBuilder sb = new StringBuilder("");
+//		BufferedReader br = null;
+//		try {
+//			InputStream is = request.getInputStream();
+//			if (is != null) {
+//				br = new BufferedReader(new InputStreamReader(is));
+//				String lines;
+//				while ((lines = br.readLine()) != null) {
+//					sb.append(lines);
+//				}
+//			}
+//		} catch (IOException ex) {
+//			ex.printStackTrace();
+//		}
+//		
+//		String body = sb.toString();
+//		
+//		if(body!=null && body.length()>0){
+//			
+//			JSONObject jsonObj = JSONObject.fromObject(sb.toString());
+//			
+//			Map<String, Object> map = new HashMap<>();
+//			
+//			for(Parameter p : ps){
+//				ContentParam cp = p.getAnnotation(ContentParam.class);
+//				if(cp==null) continue;
+//				
+//				Object value = jsonObj.get(cp.name());
+//				Object o = null;
+//				
+//				if(value instanceof JSONObject){
+//					o = jsonObj.toBean((JSONObject) jsonObj.get(cp.name()), p.getType());
+//				}else{
+//					o = value;
+//				}
+//				
+//				map.put(cp.name(), o);
+//				
+//			}
+//
+//			request.setAttribute(_CONTENT_PARAM_, map);
+//		}
+//		
+//		return super.preHandle(request, response, handler);
+//	}
+
 }
