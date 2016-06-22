@@ -12,7 +12,7 @@ public class TestController extends BaseController implements TestApi{
 
 	@Override
 	public AccountDto req(@ContentParam(name="account") AccountDto account){
-    		System.out.println("ok");
+    	System.out.println("ok");
 		return null;
 	}
 	
