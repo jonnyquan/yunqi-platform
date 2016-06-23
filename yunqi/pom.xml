@@ -8,7 +8,7 @@
 	<artifactId>yunqi</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>yun qi</name>
+	<name>yun qi web</name>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
