@@ -7,7 +7,7 @@
 	<artifactId>yunqi-commons-core</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>yun qi base api</name>
+	<name>yun qi commons core</name>
 	<url>http://bestaone.com</url>
 	
 	<parent>
