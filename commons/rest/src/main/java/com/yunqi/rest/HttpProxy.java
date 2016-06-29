@@ -76,9 +76,7 @@ public class HttpProxy extends HessianProxy{
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		} finally {
-			if(out!=null){
-				out.close();
-			}
+
 		}
 		
 		logger.debug("Request:" + sbOut.toString());
@@ -95,6 +93,9 @@ public class HttpProxy extends HessianProxy{
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally{
+			if(out!=null){
+				out.close();
+			}
 			if(reader!=null){
 				reader.close();
 			}
