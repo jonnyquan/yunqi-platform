@@ -8,6 +8,8 @@ import java.lang.reflect.Parameter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.caucho.hessian.client.HessianProxy;
@@ -21,6 +23,8 @@ import net.sf.json.JSONObject;
 public class HttpProxy extends HessianProxy{
 
 	private static final long serialVersionUID = 5607059789355942804L;
+	
+	public final Logger logger = LoggerFactory.getLogger(getClass());
 
 	public HttpProxy(URL url, HessianProxyFactory factory, Class<?> type) {
 		super(url, factory, type);
@@ -73,10 +77,12 @@ public class HttpProxy extends HessianProxy{
 			}
 		}
 		
+		logger.debug("Request:" + sbOut.toString());
+		
 		BufferedReader reader = null;
         StringBuffer sb = new StringBuffer("");
 		try {
-			reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));
 			String lines;
 			while ((lines = reader.readLine()) != null) {
 			    lines = new String(lines.getBytes(), "utf-8");
@@ -89,6 +95,8 @@ public class HttpProxy extends HessianProxy{
 				reader.close();
 			}
 		}
+		
+		logger.debug("Response:" + sb.toString());
 
 		JSONObject jsonObj = JSONObject.fromObject(sb.toString());
 		if(jsonObj==null) return null;

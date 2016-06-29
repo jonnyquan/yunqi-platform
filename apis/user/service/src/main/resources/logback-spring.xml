@@ -3,4 +3,8 @@
 	<include resource="org/springframework/boot/logging/logback/base.xml" />
 	<property name="LOG_FILE" value="user.log"/>
 	<logger name="com.yunqi" level="DEBUG" />
+<!-- 	<encoder class="cre.encoder.LayoutWrappingEncoder">
+		<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} : %p [%c] [%t] %m%n</pattern>
+		<charset>UTF-8</charset>
+	</encoder> -->
 </configuration>

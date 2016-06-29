@@ -1,4 +1,4 @@
-package com.yunqi.config;
+package com.yunqi.web.config;
 
 import org.springframework.context.annotation.Configuration;
 

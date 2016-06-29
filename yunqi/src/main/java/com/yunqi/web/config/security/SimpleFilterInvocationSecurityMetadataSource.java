@@ -1,4 +1,4 @@
-package com.yunqi.config.security;
+package com.yunqi.web.config.security;
 
 import java.util.ArrayList;
 import java.util.Collection;

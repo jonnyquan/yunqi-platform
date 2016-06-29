@@ -1,11 +1,11 @@
-package com.yunqi;
+package com.yunqi.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages={"com.yunqi.web"})
 public class Application extends SpringBootServletInitializer {
 
 	@Override

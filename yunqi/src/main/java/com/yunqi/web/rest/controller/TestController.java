@@ -1,4 +1,4 @@
-package com.yunqi.rest.controller;
+package com.yunqi.web.rest.controller;
 
 import java.util.Date;
 import java.util.Map;

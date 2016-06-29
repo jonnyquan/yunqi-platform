@@ -1,4 +1,4 @@
-package com.yunqi.config;
+package com.yunqi.web.config;
 
 import java.net.MalformedURLException;
 

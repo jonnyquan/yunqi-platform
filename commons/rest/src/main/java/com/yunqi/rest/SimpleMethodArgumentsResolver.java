@@ -2,6 +2,8 @@ package com.yunqi.rest;
 
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
@@ -13,6 +15,8 @@ import com.yunqi.rest.dto.ContentParam;
 import com.yunqi.rest.util.ClassUtil;
 
 public class SimpleMethodArgumentsResolver implements HandlerMethodArgumentResolver {
+	
+	public final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	public boolean supportsParameter(MethodParameter parameter) {
 		boolean flag = false;

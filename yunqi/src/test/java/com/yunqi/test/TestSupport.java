@@ -8,7 +8,7 @@ import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import com.yunqi.Application;
+import com.yunqi.web.Application;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)

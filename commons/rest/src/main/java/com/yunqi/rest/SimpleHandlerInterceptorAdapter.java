@@ -10,6 +10,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -22,6 +24,8 @@ import net.sf.json.JSONObject;
 public class SimpleHandlerInterceptorAdapter extends HandlerInterceptorAdapter{
 	
 	public static String _CONTENT_PARAM_ = "_content_param_";
+	
+	public final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -60,6 +64,8 @@ public class SimpleHandlerInterceptorAdapter extends HandlerInterceptorAdapter{
 		}
 		
 		String body = sb.toString();
+		
+		logger.debug("body:" + body);
 		
 		if(body!=null && body.length()>0){
 			

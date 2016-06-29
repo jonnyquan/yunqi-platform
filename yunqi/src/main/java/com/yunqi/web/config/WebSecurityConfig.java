@@ -1,4 +1,4 @@
-package com.yunqi.config;
+package com.yunqi.web.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -12,11 +12,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 
-import com.yunqi.config.security.LoginSuccessHandler;
-import com.yunqi.config.security.SimpleAccessDecisionManager;
-import com.yunqi.config.security.SimpleFilterInvocationSecurityMetadataSource;
-import com.yunqi.config.security.SimpleSecurityInterceptor;
-import com.yunqi.config.security.SimpleUserDetailsService;
+import com.yunqi.web.config.security.LoginSuccessHandler;
+import com.yunqi.web.config.security.SimpleAccessDecisionManager;
+import com.yunqi.web.config.security.SimpleFilterInvocationSecurityMetadataSource;
+import com.yunqi.web.config.security.SimpleSecurityInterceptor;
+import com.yunqi.web.config.security.SimpleUserDetailsService;
 
 @Configuration
 @EnableWebSecurity

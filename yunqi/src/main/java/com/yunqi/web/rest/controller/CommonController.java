@@ -1,4 +1,4 @@
-package com.yunqi.rest.controller;
+package com.yunqi.web.rest.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
