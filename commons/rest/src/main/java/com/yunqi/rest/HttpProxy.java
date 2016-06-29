@@ -47,6 +47,8 @@ public class HttpProxy extends HessianProxy{
 		
 		URL url = new URL(this.getURL().toString() + content + path);
 		
+		logger.debug("url:" + this.getURL().toString() + content + path);
+		
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
 		conn.setRequestProperty("Accept-Charset", "utf-8");
