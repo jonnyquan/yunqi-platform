@@ -9,8 +9,8 @@ import com.yunqi.apis.user.api.dto.UserDto;
 import com.yunqi.apis.user.domain.Account;
 import com.yunqi.apis.user.domain.User;
 import com.yunqi.apis.user.service.AccountService;
-import com.yunqi.common.view.dto.ContentParam;
-import com.yunqi.core.view.BaseController;
+import com.yunqi.rest.BaseController;
+import com.yunqi.rest.dto.ContentParam;
 
 @RestController
 public class AccountController extends BaseController implements AccountApi{

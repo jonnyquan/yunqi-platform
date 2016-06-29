@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.yunqi.apis.user.api.dto.AccountDto;
-import com.yunqi.common.view.dto.ContentParam;
+import com.yunqi.rest.dto.ContentParam;
 
 @RequestMapping("/account")
 public interface AccountApi{

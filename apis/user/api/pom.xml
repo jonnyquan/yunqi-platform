@@ -24,12 +24,8 @@
 
 	<dependencies>
 		<dependency>
-		    <groupId>org.springframework</groupId>
-		    <artifactId>spring-web</artifactId>
-		</dependency>
-		<dependency>
-		<groupId>com.yunqi.commons</groupId>
-			<artifactId>yunqi-commons-common</artifactId>
+			<groupId>com.yunqi.commons</groupId>
+			<artifactId>yunqi-commons-rest</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 	</dependencies>

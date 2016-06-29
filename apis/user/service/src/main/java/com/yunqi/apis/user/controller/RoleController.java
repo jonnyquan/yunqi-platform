@@ -11,8 +11,8 @@ import com.yunqi.apis.user.api.RoleApi;
 import com.yunqi.apis.user.api.dto.RoleDto;
 import com.yunqi.apis.user.domain.Role;
 import com.yunqi.apis.user.service.RoleService;
-import com.yunqi.common.view.dto.ContentParam;
-import com.yunqi.core.view.BaseController;
+import com.yunqi.rest.BaseController;
+import com.yunqi.rest.dto.ContentParam;
 
 @RestController
 public class RoleController extends BaseController implements RoleApi{

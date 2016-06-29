@@ -12,7 +12,7 @@ import com.yunqi.apis.user.api.dto.UserDto;
 import com.yunqi.apis.user.domain.Resource;
 import com.yunqi.apis.user.domain.Role;
 import com.yunqi.apis.user.domain.User;
-import com.yunqi.core.view.BaseController;
+import com.yunqi.rest.BaseController;
 
 @RestController
 public class UserController extends BaseController implements UserApi{

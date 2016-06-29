@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.yunqi.apis.user.api.dto.RoleDto;
-import com.yunqi.common.view.dto.ContentParam;
+import com.yunqi.rest.dto.ContentParam;
 
 @RequestMapping("/role")
 public interface RoleApi{
