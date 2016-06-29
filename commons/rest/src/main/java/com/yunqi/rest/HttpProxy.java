@@ -48,10 +48,12 @@ public class HttpProxy extends HessianProxy{
 		URL url = new URL(this.getURL().toString() + content + path);
 		
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setDoOutput(true);
 
 		conn.setRequestProperty("Accept-Charset", "utf-8");
 		conn.setRequestProperty("Content-Type", "application/json");
+		conn.setRequestProperty("connection", "Keep-Alive");
+		conn.setDoInput(true);
+        conn.setDoOutput(true);
 		
 		StringBuffer sbOut = new StringBuffer("{");
 		Parameter[] ps = method.getParameters();
