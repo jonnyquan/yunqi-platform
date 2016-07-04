@@ -3,7 +3,7 @@ package com.yunqi.apis.user;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages={"com.yunqi.apis.user", "com.yunqi.rest.scan"})
 public class Application{
 	
 	public static void main(String[] args) throws Exception {

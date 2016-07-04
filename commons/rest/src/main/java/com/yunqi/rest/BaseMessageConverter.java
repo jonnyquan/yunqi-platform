@@ -3,13 +3,17 @@ package com.yunqi.rest;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
+import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yunqi.rest.dto.ExceptionDto;
+import com.yunqi.rest.dto.Null;
 import com.yunqi.rest.dto.ResponseDto;
 import com.yunqi.rest.dto.ResponseState;
 
@@ -18,6 +22,7 @@ public class BaseMessageConverter extends MappingJackson2HttpMessageConverter{
 	public BaseMessageConverter() {
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+		objectMapper.setSerializationInclusion(Include.NON_NULL);
 		this.setObjectMapper(objectMapper);
 	}
 	
@@ -34,36 +39,26 @@ public class BaseMessageConverter extends MappingJackson2HttpMessageConverter{
 		}else{
 			rd.setState(ResponseState.SUCCESS);
 		}
-		rd.setResult(object);
+		
+		if( !(object instanceof Null) ){
+			rd.setResult(object);
+		}
 		
 		super.writeInternal(rd, type, outputMessage);
 		
 	}
 
-//	@Override
-//	protected Object readInternal(Class<?> clazz, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
-//		return super.readInternal(clazz, inputMessage);
-//	}
-//
-//	@Override
-//	public Object read(Type type, Class<?> contextClass, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
-//		JavaType javaType = getJavaType(type, contextClass);
-//		return readJavaType(javaType, inputMessage);
-//	}
-//
-//	private Object readJavaType(JavaType javaType, HttpInputMessage inputMessage) {
-//		try {
-//			if (inputMessage instanceof MappingJacksonInputMessage) {
-//				Class<?> deserializationView = ((MappingJacksonInputMessage) inputMessage).getDeserializationView();
-//				if (deserializationView != null) {
-//					return this.objectMapper.readerWithView(deserializationView).withType(javaType).readValue(inputMessage.getBody());
-//				}
-//			}
-//			return this.objectMapper.readValue(inputMessage.getBody(), javaType);
-//		}
-//		catch (IOException ex) {
-//			throw new HttpMessageNotReadableException("Could not read document: " + ex.getMessage(), ex);
-//		}
-//	}
+	@Override
+	public Object read(Type type, Class<?> contextClass, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
+		// TODO Auto-generated method stub
+		return super.read(type, contextClass, inputMessage);
+	}
+	
+	
+
+	@Override
+	protected Object readInternal(Class<?> clazz, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
+		return super.readInternal(clazz, inputMessage);
+	}
 
 }
