@@ -36,8 +36,8 @@ public class SimpleHandlerInterceptorAdapter extends HandlerInterceptorAdapter{
 		boolean hasContentParam = false;
 		
 		if(mps!=null && mps.length>0){
-			for(MethodParameter mp : mps){
-				if(ClassUtil.hasParameterAnnotation(mp, ContentParam.class)){
+			for(int i=0; i<mps.length; i++){
+				if(ClassUtil.hasParameterAnnotation(mps[i], ContentParam.class)){
 					hasContentParam = true;
 					break;
 				}
@@ -76,12 +76,31 @@ public class SimpleHandlerInterceptorAdapter extends HandlerInterceptorAdapter{
 			for(MethodParameter mp : mps){
 				ContentParam cp = ClassUtil.getParameterAnnotation(mp, ContentParam.class);
 				if(cp==null) continue;
-				
 				Object value = jsonObj.get(cp.name());
-				Object o = null;
 				
+				if(value==null){
+					continue;
+				}
+				
+				Object o = null;
 				if(value instanceof JSONObject){
-					o = jsonObj.toBean((JSONObject) jsonObj.get(cp.name()), mp.getParameterType());
+					o = JSONObject.toBean((JSONObject) jsonObj.get(cp.name()), mp.getParameterType());
+				}else if(mp.getParameterType().isAssignableFrom(Long.class)){
+					o = (value instanceof Long) ? value : Long.parseLong(value.toString());
+				}else if(mp.getParameterType().isAssignableFrom(String.class)){
+					o = (value instanceof String) ? value : value.toString();
+				}else if(mp.getParameterType().isAssignableFrom(Integer.class)){
+					o = (value instanceof Integer) ? value : Integer.parseInt(value.toString());
+				}else if(mp.getParameterType().isAssignableFrom(Boolean.class)){
+					o = (value instanceof Boolean) ? value : Boolean.parseBoolean(value.toString());
+				}else if(mp.getParameterType().isAssignableFrom(Double.class)){
+					o = (value instanceof Double) ? value : Double.parseDouble(value.toString());
+				}else if(mp.getParameterType().isAssignableFrom(Float.class)){
+					o = (value instanceof Float) ? value : Float.parseFloat(value.toString());
+				}else if(mp.getParameterType().isAssignableFrom(Short.class)){
+					o = (value instanceof Short) ? value : Short.parseShort(value.toString());
+				}else if(mp.getParameterType().isAssignableFrom(Byte.class)){
+					o = (value instanceof Byte) ? value : Byte.parseByte(value.toString());
 				}else{
 					o = value;
 				}

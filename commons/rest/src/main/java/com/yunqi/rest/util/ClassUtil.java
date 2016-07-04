@@ -35,11 +35,8 @@ public class ClassUtil {
 		Parameter[] ps = iMethod.getParameters();
 		
 		ContentParam cp = null;		
-		if(ps!=null && ps.length>0){
-			for(Parameter p : ps){
-				cp = p.getAnnotation(ContentParam.class);
-				if(cp!=null) break;
-			}
+		if(ps!=null && ps.length>=parameter.getParameterIndex()){
+			cp = ps[parameter.getParameterIndex()].getAnnotation(ContentParam.class);
 		}
 		
 		return (T) cp;
