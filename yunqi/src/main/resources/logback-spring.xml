@@ -3,4 +3,8 @@
 	<include resource="org/springframework/boot/logging/logback/base.xml" />
 	<property name="LOG_FILE" value="yunqi.log"/>
 	<logger name="com.yunqi" level="DEBUG" />
+    <root level="INFO">
+    	<appender-ref ref="CONSOLE" />
+        <!-- <appender-ref ref="FILE" /> -->
+    </root>
 </configuration>
