@@ -23,7 +23,7 @@ import net.sf.json.JSONObject;
 
 public class SimpleHandlerInterceptorAdapter extends HandlerInterceptorAdapter{
 	
-	public static String _CONTENT_PARAM_ = "_content_param_";
+	public static String CONTENT_PARAM = "_content_param_";
 	
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -109,7 +109,7 @@ public class SimpleHandlerInterceptorAdapter extends HandlerInterceptorAdapter{
 				
 			}
 
-			request.setAttribute(_CONTENT_PARAM_, map);
+			request.setAttribute(CONTENT_PARAM, map);
 		}
 		
 		return super.preHandle(request, response, handler);

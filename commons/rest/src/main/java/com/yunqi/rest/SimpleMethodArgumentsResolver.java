@@ -32,7 +32,7 @@ public class SimpleMethodArgumentsResolver implements HandlerMethodArgumentResol
 
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 		
-		Map<String, Object> map = (Map<String, Object>) webRequest.getAttribute(SimpleHandlerInterceptorAdapter._CONTENT_PARAM_, RequestAttributes.SCOPE_REQUEST);
+		Map<String, Object> map = (Map<String, Object>) webRequest.getAttribute(SimpleHandlerInterceptorAdapter.CONTENT_PARAM, RequestAttributes.SCOPE_REQUEST);
 		ContentParam cp = ClassUtil.getParameterAnnotation(parameter, ContentParam.class);
 		String key = cp.name();
 

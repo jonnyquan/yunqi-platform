@@ -3,9 +3,7 @@ package com.yunqi.rest;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
-import org.springframework.http.HttpInputMessage;
 import org.springframework.http.HttpOutputMessage;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 
@@ -46,19 +44,6 @@ public class BaseMessageConverter extends MappingJackson2HttpMessageConverter{
 		
 		super.writeInternal(rd, type, outputMessage);
 		
-	}
-
-	@Override
-	public Object read(Type type, Class<?> contextClass, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
-		// TODO Auto-generated method stub
-		return super.read(type, contextClass, inputMessage);
-	}
-	
-	
-
-	@Override
-	protected Object readInternal(Class<?> clazz, HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
-		return super.readInternal(clazz, inputMessage);
 	}
 
 }
