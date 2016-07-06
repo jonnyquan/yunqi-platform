@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.yunqi.rest.dto.ContentParam;
 
 @RequestMapping("/test")
-public interface TestApi{
+public interface OrgTestApi{
 
 	@RequestMapping(path="/test2", method = RequestMethod.POST)
 	public void test2();

@@ -21,6 +21,7 @@ public class EmployeeServiceTest extends TestSupport{
 		//CREATE
 		Employee o = new Employee();
 		o.setBirthday(new Date());
+		o.setUser(1L);
 		o.setName("test");
 		service.save(o);
 		Assert.assertNotNull(o.getId());

@@ -27,7 +27,6 @@ public class Employee extends MongoEntity<Employee>{
 	private String icon;
 	private SexType sex;
 	private String telNo;
-	@DBRef
 	private Long userId;
 	private EmployeeState state;
 	public String getName() {

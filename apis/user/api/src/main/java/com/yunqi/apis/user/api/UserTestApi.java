@@ -7,7 +7,7 @@ import com.yunqi.apis.user.api.dto.AccountDto;
 import com.yunqi.rest.dto.ContentParam;
 
 @RequestMapping("/test")
-public interface TestApi{
+public interface UserTestApi{
 
 	@RequestMapping(path="/test1", method = RequestMethod.POST)
 	public AccountDto test1(@ContentParam(name="account") AccountDto account);

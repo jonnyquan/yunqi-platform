@@ -1,4 +1,4 @@
-package com.yunqi.web.config;
+package com.yunqi.web.config.rmi;
 
 import java.net.MalformedURLException;
 
@@ -14,7 +14,7 @@ import com.yunqi.apis.user.api.ResourceApi;
 import com.yunqi.apis.user.api.RoleApi;
 
 @Configuration
-public class RmiConfig implements EnvironmentAware{
+public class UserRmiConfig implements EnvironmentAware{
 	
 	private RelaxedPropertyResolver rpr;
 

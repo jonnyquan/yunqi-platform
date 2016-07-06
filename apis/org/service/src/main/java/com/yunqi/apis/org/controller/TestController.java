@@ -4,11 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.yunqi.apis.org.api.TestApi;
+import com.yunqi.apis.org.api.OrgTestApi;
 import com.yunqi.rest.service.BaseController;
 
 @RestController
-public class TestController extends BaseController implements TestApi{
+public class TestController extends BaseController implements OrgTestApi{
 	
 	public final static Logger logger = LoggerFactory.getLogger(TestController.class);
 
