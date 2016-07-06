@@ -10,7 +10,7 @@ import com.yunqi.apis.user.api.ResourceApi;
 import com.yunqi.apis.user.api.dto.ResourceDto;
 import com.yunqi.apis.user.domain.Resource;
 import com.yunqi.apis.user.service.ResourceService;
-import com.yunqi.rest.BaseController;
+import com.yunqi.rest.service.BaseController;
 
 @RestController
 public class ResourceController extends BaseController implements ResourceApi{

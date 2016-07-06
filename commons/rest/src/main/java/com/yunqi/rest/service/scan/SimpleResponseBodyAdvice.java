@@ -1,4 +1,4 @@
-package com.yunqi.rest.scan;
+package com.yunqi.rest.service.scan;
 
 import org.springframework.core.MethodParameter;
 import org.springframework.http.MediaType;

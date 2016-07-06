@@ -76,7 +76,7 @@ import com.caucho.hessian.io.HessianRemoteObject;
 import com.caucho.hessian.io.HessianRemoteResolver;
 import com.caucho.hessian.io.SerializerFactory;
 import com.caucho.services.client.ServiceProxyFactory;
-import com.yunqi.rest.HttpProxy;
+import com.yunqi.rest.client.HttpProxy;
 
 /**
  * Factory for creating Hessian client stubs.  The returned stub will

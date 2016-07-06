@@ -1,4 +1,4 @@
-package com.yunqi.rest;
+package com.yunqi.rest.client;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -17,9 +17,16 @@ import com.caucho.hessian.client.HessianProxyFactory;
 import com.yunqi.rest.dto.ContentParam;
 import com.yunqi.rest.dto.ExceptionDto;
 import com.yunqi.rest.dto.ResponseState;
+import com.yunqi.rest.service.BeanSerializeUtil;
 
 import net.sf.json.JSONObject;
 
+/**
+ * 客户的远程调用代理
+ * 通过解析API接口注解，发送http请求，并且将返回的json转换成对应的实体返回给客户端
+ * @author bestaone
+ *
+ */
 public class HttpProxy extends HessianProxy{
 
 	private static final long serialVersionUID = 5607059789355942804L;

@@ -1,4 +1,4 @@
-package com.yunqi.rest;
+package com.yunqi.rest.service;
 
 import java.io.IOException;
 import java.lang.reflect.Type;

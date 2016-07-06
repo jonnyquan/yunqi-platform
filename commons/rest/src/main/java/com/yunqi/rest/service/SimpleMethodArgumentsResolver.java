@@ -1,4 +1,4 @@
-package com.yunqi.rest;
+package com.yunqi.rest.service;
 
 import java.util.Map;
 
@@ -14,6 +14,10 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import com.yunqi.rest.dto.ContentParam;
 import com.yunqi.rest.util.ClassUtil;
 
+/**
+ * api方法参数解析器
+ * context body json已在拦截器中被解析到了Request Attribute中，在填充参数值时这里会从此处提取值填充参数
+ */
 public class SimpleMethodArgumentsResolver implements HandlerMethodArgumentResolver {
 	
 	public final Logger logger = LoggerFactory.getLogger(getClass());

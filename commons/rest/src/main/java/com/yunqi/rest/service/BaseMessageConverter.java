@@ -1,4 +1,4 @@
-package com.yunqi.rest;
+package com.yunqi.rest.service;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
@@ -15,6 +15,11 @@ import com.yunqi.rest.dto.Null;
 import com.yunqi.rest.dto.ResponseDto;
 import com.yunqi.rest.dto.ResponseState;
 
+/**
+ * 接口返回值处理器
+ * 会将返回值包装为ResponseDto格式，包括异常信息
+ * @author bestaone
+ */
 public class BaseMessageConverter extends MappingJackson2HttpMessageConverter{
 
 	public BaseMessageConverter() {

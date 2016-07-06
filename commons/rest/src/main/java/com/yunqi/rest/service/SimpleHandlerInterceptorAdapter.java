@@ -1,4 +1,4 @@
-package com.yunqi.rest;
+package com.yunqi.rest.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -21,6 +21,10 @@ import com.yunqi.rest.util.ClassUtil;
 
 import net.sf.json.JSONObject;
 
+/**
+ * 拦截收到的Request，并从Request中解析出context body json，然后解析后放到Request attribute中，以供invoke api接口后，填充接口参数
+ * @author bestaone
+ */
 public class SimpleHandlerInterceptorAdapter extends HandlerInterceptorAdapter{
 	
 	public static String CONTENT_PARAM = "_content_param_";

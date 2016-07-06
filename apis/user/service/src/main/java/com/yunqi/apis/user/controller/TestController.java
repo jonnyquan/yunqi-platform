@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.yunqi.apis.user.api.TestApi;
 import com.yunqi.apis.user.api.dto.AccountDto;
-import com.yunqi.rest.BaseController;
+import com.yunqi.rest.service.BaseController;
 
 @RestController
 public class TestController extends BaseController implements TestApi{

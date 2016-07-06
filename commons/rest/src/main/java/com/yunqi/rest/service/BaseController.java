@@ -1,4 +1,4 @@
-package com.yunqi.rest;
+package com.yunqi.rest.service;
 
 import javax.servlet.http.HttpServletRequest;
 
