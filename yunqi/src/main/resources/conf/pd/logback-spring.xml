@@ -5,6 +5,6 @@
 	<property name="LOG_FILE" value="${catalina.base}/logs/yunqi.log}"/>
 	<logger name="com.yunqi" level="DEBUG" />
 	<root level="INFO">
-		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="FILE" />
 	</root>
 </configuration>

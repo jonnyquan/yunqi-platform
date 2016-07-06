@@ -102,7 +102,7 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-surefire-plugin</artifactId>
 					<configuration>
-						<skip>true</skip>
+						<skip>${test.skip}</skip>
 						<includes>
 							<include>**com/yunqi/test/**/*Test.java</include>
 						</includes>
@@ -133,6 +133,15 @@
 					<configuration>
 						<locales>${project.build.locales}</locales>
 						<outputEncoding>${project.build.sourceEncoding}</outputEncoding>
+						<resources>
+							<resource>
+								<directory>src/main/resources/conf/${package.environment}</directory>
+								<excludes>
+									<exclude>src/main/resources/conf</exclude>
+								</excludes>
+								<filtering>true</filtering>
+							</resource>
+						</resources>
 					</configuration>
 				</plugin>
 			
@@ -141,13 +150,16 @@
 					<artifactId>docker-maven-plugin</artifactId>
 					<version>0.4.0</version>
 				</plugin>	
-				<!-- 
 				<plugin>
-					<groupId>org.apache.tomcat.maven</groupId>
-					<artifactId>tomcat7-maven-plugin</artifactId>
-					<version>2.2</version>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-war-plugin</artifactId>
+					<configuration>
+						<archive>
+							<addMavenDescriptor>false</addMavenDescriptor>
+						</archive>
+						<encoding>UTF-8</encoding>
+					</configuration>
 				</plugin>
- 				-->
 			</plugins>
 		</pluginManagement>
         <plugins>
@@ -172,19 +184,42 @@
 				</configuration>
 			</plugin>
     		<!-- end::plugin[] -->
-			<!--     		
-			<plugin>
-				<groupId>org.apache.tomcat.maven</groupId>
-				<artifactId>tomcat7-maven-plugin</artifactId>
-				<configuration>
-					<port>8080</port>
-					<path>/yunqi</path>
-					<uriEncoding>UTF-8</uriEncoding>
-					<useTestClasspath>false</useTestClasspath>
-				</configuration>
-			</plugin>
-			-->
         </plugins>
+
 	</build>
+
+	<profiles>
+		<profile>
+			<id>pd</id>
+			<properties>
+				<package.environment>pd</package.environment>
+				<test.skip>true</test.skip>
+			</properties>
+		</profile>
+		<profile>
+			<id>pp</id>
+			<properties>
+				<package.environment>pp</package.environment>
+				<test.skip>true</test.skip>
+			</properties>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<package.environment>dev</package.environment>
+				<test.skip>true</test.skip>
+			</properties>
+		</profile>
+		<profile>
+			<id>default</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<properties>
+				<package.environment>.</package.environment>
+				<test.skip>true</test.skip>
+			</properties>
+		</profile>
+	</profiles>
 
 </project>
