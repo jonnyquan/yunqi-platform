@@ -449,4 +449,167 @@ public class HessianProxyFactory implements ServiceProxyFactory, ObjectFactory {
   {
     if (api == null)
       throw new NullPointerException("api must not be null for HessianProxyFactory.create()");
-    InvocationHandler handler =
+    InvocationHandler handler = null;
+
+//  handler = new HessianProxy(url, this, api);
+    handler = new HttpProxy(url, this, api);
+
+    return Proxy.newProxyInstance(loader,
+                                  new Class[] { api,
+                                                HessianRemoteObject.class },
+                                  handler);
+  }
+
+  public AbstractHessianInput getHessianInput(InputStream is)
+  {
+    return getHessian2Input(is);
+  }
+
+  public AbstractHessianInput getHessian1Input(InputStream is)
+  {
+    AbstractHessianInput in;
+
+    if (_isDebug)
+      is = new HessianDebugInputStream(is, new PrintWriter(System.out));
+
+    in = new HessianInput(is);
+
+    in.setRemoteResolver(getRemoteResolver());
+
+    in.setSerializerFactory(getSerializerFactory());
+
+    return in;
+  }
+
+  public AbstractHessianInput getHessian2Input(InputStream is)
+  {
+    AbstractHessianInput in;
+
+    if (_isDebug)
+      is = new HessianDebugInputStream(is, new PrintWriter(System.out));
+
+    in = new Hessian2Input(is);
+
+    in.setRemoteResolver(getRemoteResolver());
+
+    in.setSerializerFactory(getSerializerFactory());
+
+    return in;
+  }
+
+  public AbstractHessianOutput getHessianOutput(OutputStream os)
+  {
+    AbstractHessianOutput out;
+
+    if (_isHessian2Request)
+      out = new Hessian2Output(os);
+    else {
+      HessianOutput out1 = new HessianOutput(os);
+      out = out1;
+
+      if (_isHessian2Reply)
+        out1.setVersion(2);
+    }
+
+    out.setSerializerFactory(getSerializerFactory());
+
+    return out;
+  }
+
+  /**
+   * JNDI object factory so the proxy can be used as a resource.
+   */
+  public Object getObjectInstance(Object obj, Name name,
+                                  Context nameCtx, Hashtable<?,?> environment)
+    throws Exception
+  {
+    Reference ref = (Reference) obj;
+
+    String api = null;
+    String url = null;
+    
+    for (int i = 0; i < ref.size(); i++) {
+      RefAddr addr = ref.get(i);
+
+      String type = addr.getType();
+      String value = (String) addr.getContent();
+
+      if (type.equals("type"))
+        api = value;
+      else if (type.equals("url"))
+        url = value;
+      else if (type.equals("user"))
+        setUser(value);
+      else if (type.equals("password"))
+        setPassword(value);
+    }
+
+    if (url == null)
+      throw new NamingException("`url' must be configured for HessianProxyFactory.");
+    // XXX: could use meta protocol to grab this
+    if (api == null)
+      throw new NamingException("`type' must be configured for HessianProxyFactory.");
+
+    Class apiClass = Class.forName(api, false, _loader);
+
+    return create(apiClass, url);
+  }
+
+  /**
+   * Creates the Base64 value.
+   */
+  private String base64(String value)
+  {
+    StringBuffer cb = new StringBuffer();
+
+    int i = 0;
+    for (i = 0; i + 2 < value.length(); i += 3) {
+      long chunk = (int) value.charAt(i);
+      chunk = (chunk << 8) + (int) value.charAt(i + 1);
+      chunk = (chunk << 8) + (int) value.charAt(i + 2);
+
+      cb.append(encode(chunk >> 18));
+      cb.append(encode(chunk >> 12));
+      cb.append(encode(chunk >> 6));
+      cb.append(encode(chunk));
+    }
+
+    if (i + 1 < value.length()) {
+      long chunk = (int) value.charAt(i);
+      chunk = (chunk << 8) + (int) value.charAt(i + 1);
+      chunk <<= 8;
+
+      cb.append(encode(chunk >> 18));
+      cb.append(encode(chunk >> 12));
+      cb.append(encode(chunk >> 6));
+      cb.append('=');
+    }
+    else if (i < value.length()) {
+      long chunk = (int) value.charAt(i);
+      chunk <<= 16;
+
+      cb.append(encode(chunk >> 18));
+      cb.append(encode(chunk >> 12));
+      cb.append('=');
+      cb.append('=');
+    }
+
+    return cb.toString();
+  }
+
+  public static char encode(long d)
+  {
+    d &= 0x3f;
+    if (d < 26)
+      return (char) (d + 'A');
+    else if (d < 52)
+      return (char) (d + 'a' - 26);
+    else if (d < 62)
+      return (char) (d + '0' - 52);
+    else if (d == 62)
+      return '+';
+    else
+      return '/';
+  }
+}
+
