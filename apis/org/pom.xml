@@ -3,11 +3,11 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>com.yunqi</groupId>
-	<artifactId>yunqi-apis</artifactId>
+	<groupId>com.yunqi.apis</groupId>
+	<artifactId>yunqi-org</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
-	<name>yun qi apis</name>
+	<name>yun qi org</name>
 	<url>http://bestaone.com</url>
 
 	<properties>
@@ -16,9 +16,8 @@
 	</properties>
 	
 	<modules>
-		<module>base</module>
-		<module>user</module>
-		<module>org</module>
+		<module>api</module>
+		<module>service</module>
 	</modules>
 	
 </project>
