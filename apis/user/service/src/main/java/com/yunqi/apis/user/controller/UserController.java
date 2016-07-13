@@ -12,10 +12,9 @@ import com.yunqi.apis.user.api.dto.UserDto;
 import com.yunqi.apis.user.domain.Resource;
 import com.yunqi.apis.user.domain.Role;
 import com.yunqi.apis.user.domain.User;
-import com.yunqi.rest.service.BaseController;
 
 @RestController
-public class UserController extends BaseController implements UserApi{
+public class UserController implements UserApi{
 	
 //	public static User dtoToDomain(UserDto dto){
 //		if(dto==null) return null;

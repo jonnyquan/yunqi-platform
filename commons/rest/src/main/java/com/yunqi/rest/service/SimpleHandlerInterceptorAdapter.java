@@ -33,7 +33,7 @@ public class SimpleHandlerInterceptorAdapter extends HandlerInterceptorAdapter{
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		
+				
 		HandlerMethod handlerMethod = (HandlerMethod) handler;
 		MethodParameter[] mps = handlerMethod.getMethodParameters();
 		

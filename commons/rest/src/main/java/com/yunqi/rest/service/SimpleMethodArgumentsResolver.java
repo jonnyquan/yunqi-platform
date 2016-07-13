@@ -23,24 +23,21 @@ public class SimpleMethodArgumentsResolver implements HandlerMethodArgumentResol
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	public boolean supportsParameter(MethodParameter parameter) {
-		boolean flag = false;
-		try {
-			flag = ClassUtil.hasParameterAnnotation(parameter, ContentParam.class);
-		} catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		} catch (SecurityException e) {
-			e.printStackTrace();
-		}
-		return flag;
+		return ClassUtil.hasParameterAnnotation(parameter, ContentParam.class);
 	}
 
 	public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 		
-		Map<String, Object> map = (Map<String, Object>) webRequest.getAttribute(SimpleHandlerInterceptorAdapter.CONTENT_PARAM, RequestAttributes.SCOPE_REQUEST);
 		ContentParam cp = ClassUtil.getParameterAnnotation(parameter, ContentParam.class);
 		String key = cp.name();
+		
+		Map<String, Object> map = (Map<String, Object>) webRequest.getAttribute(SimpleHandlerInterceptorAdapter.CONTENT_PARAM, RequestAttributes.SCOPE_REQUEST);
+		
+		Object v = (map!=null?map.get(key):null);
+		
+		if(cp.notnull() && v==null) throw new RestException("Param " + key + " can not null !");
 
-		return map.get(key);
+		return v;
 	}
 
 }

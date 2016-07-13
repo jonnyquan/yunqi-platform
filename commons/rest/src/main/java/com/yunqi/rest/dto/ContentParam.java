@@ -13,4 +13,6 @@ public @interface ContentParam {
 	
 	String name();
 	
+	boolean notnull() default true;
+	
 }

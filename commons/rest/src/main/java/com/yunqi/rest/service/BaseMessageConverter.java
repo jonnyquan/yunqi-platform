@@ -34,12 +34,18 @@ public class BaseMessageConverter extends MappingJackson2HttpMessageConverter{
 		
 		if(object==null){
 			super.writeInternal(object, type, outputMessage);
+			return;
+		}
+		
+		if(object instanceof ResponseDto){
+			super.writeInternal(object, type, outputMessage);
+			return;
 		}
 		
 		ResponseDto rd = new ResponseDto();
 		if(object instanceof ExceptionDto){
 			rd.setState(ResponseState.ERROR);
-		}else{
+		} else{
 			rd.setState(ResponseState.SUCCESS);
 		}
 		

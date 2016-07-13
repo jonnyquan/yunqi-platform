@@ -5,10 +5,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yunqi.apis.org.api.OrgTestApi;
-import com.yunqi.rest.service.BaseController;
 
 @RestController
-public class TestController extends BaseController implements OrgTestApi{
+public class TestController implements OrgTestApi{
 	
 	public final static Logger logger = LoggerFactory.getLogger(TestController.class);
 

@@ -10,26 +10,34 @@ import com.yunqi.rest.dto.ContentParam;
 
 public class ClassUtil {
 	
-	public static <T extends Annotation> boolean hasParameterAnnotation(MethodParameter parameter, Class<T> annotation) throws NoSuchMethodException, SecurityException{
+	public static <T extends Annotation> boolean hasParameterAnnotation(MethodParameter parameter, Class<T> annotation) {
 		return (getParameterAnnotation(parameter, annotation)!=null);
 	}
 
-	public static <T extends Annotation> T getParameterAnnotation(MethodParameter parameter, Class<T> annotation) throws NoSuchMethodException, SecurityException{
+	public static <T extends Annotation> T getParameterAnnotation(MethodParameter parameter, Class<T> annotation) {
 		
 		Method method = parameter.getMethod();
-		Class<?> clazz = method.getDeclaringClass().getInterfaces()[0];
+		
+		Class<?>[] clazzes = method.getDeclaringClass().getInterfaces();
+		
+		if(clazzes==null || clazzes.length<1) return null;
+
 		int size = method.getParameters().length;
 		
 		Method iMethod = null;
-		if(size>0){
-			Class<?>[] is = new Class<?>[size];
-			for(int i=0; i<size; i++){
-				Parameter p = method.getParameters()[i];
-				is[i] = p.getType();
+		try {
+			if(size>0){
+				Class<?>[] is = new Class<?>[size];
+				for(int i=0; i<size; i++){
+					Parameter p = method.getParameters()[i];
+					is[i] = p.getType();
+				}
+				iMethod = clazzes[0].getMethod(method.getName(), is);
+			}else{
+				iMethod = clazzes[0].getMethod(method.getName());
 			}
-			iMethod = clazz.getMethod(method.getName(), is);
-		}else{
-			iMethod = clazz.getMethod(method.getName());
+		} catch (Exception e) {
+			return null;
 		}
 		
 		Parameter[] ps = iMethod.getParameters();

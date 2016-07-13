@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.yunqi.apis.user.api.dto.AccountDto;
 import com.yunqi.rest.dto.ContentParam;
+import com.yunqi.rest.service.RestException;
 
 @RequestMapping("/test")
 public interface UserTestApi{
@@ -25,6 +26,9 @@ public interface UserTestApi{
 	public boolean test5();
 	
 	@RequestMapping(path="/test6", method = RequestMethod.POST)
-	public String test6(@ContentParam(name="id") Long id, @ContentParam(name="name") String name);
+	public String test6(@ContentParam(name="id") Long id, @ContentParam(name="name", notnull=false) String name);
+	
+	@RequestMapping(path="/test7", method = RequestMethod.POST)
+	public boolean test7() throws RestException;
 	
 }

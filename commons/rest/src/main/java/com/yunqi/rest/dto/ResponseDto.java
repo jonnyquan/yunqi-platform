@@ -9,6 +9,13 @@ public class ResponseDto implements Serializable{
 	private ResponseState state;
 	private Object result;
 	
+	public ResponseDto(){}
+	
+	public ResponseDto(ResponseState state, Object result){
+		this.state = state;
+		this.result = result;
+	}
+	
 	public ResponseState getState() {
 		return state;
 	}

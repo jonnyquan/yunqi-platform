@@ -2,6 +2,7 @@ package com.yunqi.apis.user.config;
 
 import java.util.List;
 
+import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
+import com.yunqi.rest.service.BaseFilter;
 import com.yunqi.rest.service.BaseMessageConverter;
 import com.yunqi.rest.service.SimpleHandlerInterceptorAdapter;
 import com.yunqi.rest.service.SimpleMethodArgumentsResolver;
@@ -57,4 +59,12 @@ public class MvcConfig extends WebMvcConfigurationSupport {
 		super.addArgumentResolvers(argumentResolvers);
 	}
 
+	@Bean
+	public FilterRegistrationBean myFilterRegistration() {
+        final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        registrationBean.setFilter(new BaseFilter());
+        registrationBean.addUrlPatterns("/*");
+	    return registrationBean;
+	}
+	
 }
