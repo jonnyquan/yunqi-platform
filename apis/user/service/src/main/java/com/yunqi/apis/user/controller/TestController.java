@@ -6,13 +6,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.yunqi.apis.user.api.UserTestApi;
 import com.yunqi.apis.user.api.dto.AccountDto;
-import com.yunqi.rest.service.RestException;
+import com.yunqi.rest.service.ApiException;
+import com.yunqi.rest.service.BaseController;
 
 @RestController
-public class TestController implements UserTestApi{
+public class TestController extends BaseController implements UserTestApi{
 	
 	public final static Logger logger = LoggerFactory.getLogger(TestController.class);
 
+	@Override
+	public Integer getApiCode() {
+		return 230000;
+	}
+	
 	@Override
 	public AccountDto test1(AccountDto account){
 		logger.debug("test1");
@@ -50,8 +56,14 @@ public class TestController implements UserTestApi{
 	}
 
 	@Override
-	public boolean test7() throws RestException {
-		throw new RestException("test exception");
+	public boolean test7() throws ApiException {
+		throw new ApiException(1, "test exception");
 	}
-	
+
+	@Override
+	public void test8() {
+		int x = 1/0;
+		System.out.println(x);
+	}
+
 }

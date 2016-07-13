@@ -49,7 +49,13 @@ public class SimpleHandlerInterceptorAdapter extends HandlerInterceptorAdapter{
 		}
 		
 		if(!hasContentParam){
-			return super.preHandle(request, response, handler);
+			boolean f = false;
+			try {
+				f = super.preHandle(request, response, handler);
+			} catch (Exception e) {
+				processException(100, e);
+			}
+			return f;
 		}
 		
 		StringBuilder sb = new StringBuilder("");
@@ -116,7 +122,49 @@ public class SimpleHandlerInterceptorAdapter extends HandlerInterceptorAdapter{
 			request.setAttribute(CONTENT_PARAM, map);
 		}
 		
-		return super.preHandle(request, response, handler);
+		boolean f = false;
+		
+		try {
+			f = super.preHandle(request, response, handler);
+		} catch (Exception e) {
+			processException(100, e);
+		}
+		
+		return f;
+	}
+	
+	/**
+	 * 解析异常
+	 * @param apiCode
+	 * @param e
+	 * @throws Exception
+	 */
+	private void processException(Integer apiCode, Exception e) throws Exception{
+		
+		if(e==null) return;
+		
+		if(e instanceof ApiException){
+			throw buildRestException(apiCode, (ApiException) e);
+		} else if (e.getCause() instanceof ApiException){
+			throw buildRestException(apiCode, (ApiException) e.getCause());
+		} else if (e instanceof RestException){
+			throw e;
+		} else if (e.getCause() instanceof ApiException){
+			throw (RestException) e.getCause();
+		} else {
+			throw e;
+		}
+		
+	}
+	
+	/**
+	 * 降api异常转换为rest异常
+	 * @param apiCode
+	 * @param e
+	 * @return
+	 */
+	private RestException buildRestException(Integer apiCode, ApiException e){
+		return new RestException(apiCode+e.getCode(), e.getMessage());
 	}
 
 }

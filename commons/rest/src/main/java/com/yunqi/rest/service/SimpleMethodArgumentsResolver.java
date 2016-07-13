@@ -35,7 +35,7 @@ public class SimpleMethodArgumentsResolver implements HandlerMethodArgumentResol
 		
 		Object v = (map!=null?map.get(key):null);
 		
-		if(cp.notnull() && v==null) throw new RestException("Param " + key + " can not null !");
+		if(cp.notnull() && v==null) throw new RestException(ExceptionCode.API_PARAM_NULL_ERROR, "Param " + key + " can not null !");
 
 		return v;
 	}
