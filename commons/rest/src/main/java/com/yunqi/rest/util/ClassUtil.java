@@ -5,11 +5,14 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
 import org.springframework.core.MethodParameter;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.yunqi.rest.dto.ContentParam;
 
 public class ClassUtil {
 	
+	//AnnotationUtils.findAnnotation(returnType.getContainingClass(), ResponseBody.class)
 	public static <T extends Annotation> boolean hasParameterAnnotation(MethodParameter parameter, Class<T> annotation) {
 		return (getParameterAnnotation(parameter, annotation)!=null);
 	}

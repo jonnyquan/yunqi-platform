@@ -7,17 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.yunqi.apis.user.api.UserTestApi;
 import com.yunqi.apis.user.api.dto.AccountDto;
 import com.yunqi.rest.service.ApiException;
-import com.yunqi.rest.service.BaseController;
 
 @RestController
-public class TestController extends BaseController implements UserTestApi{
+public class TestController implements UserTestApi{
 	
 	public final static Logger logger = LoggerFactory.getLogger(TestController.class);
-
-	@Override
-	public Integer getApiCode() {
-		return 230000;
-	}
 	
 	@Override
 	public AccountDto test1(AccountDto account){

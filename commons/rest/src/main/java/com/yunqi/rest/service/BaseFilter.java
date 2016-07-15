@@ -85,6 +85,7 @@ public class BaseFilter extends GenericFilterBean {
     private void processSystemException(final ServletResponse res, Exception ex){
     	
     	ExceptionDto ed = new ExceptionDto();
+    	ed.setCode(-1);
     	ed.setMsg(ex.getMessage());
     	
     	ResponseDto rd = new ResponseDto();

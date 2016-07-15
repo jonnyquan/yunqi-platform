@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.MethodParameter;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.yunqi.rest.dto.ContentParam;
@@ -30,6 +31,15 @@ public class SimpleHandlerInterceptorAdapter extends HandlerInterceptorAdapter{
 	public static String CONTENT_PARAM = "_content_param_";
 	
 	public final Logger logger = LoggerFactory.getLogger(getClass());
+
+	@Override
+	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+		try {
+			super.postHandle(request, response, handler, modelAndView);
+		} catch (Exception e) {
+			processException(100, e);
+		}
+	}
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
