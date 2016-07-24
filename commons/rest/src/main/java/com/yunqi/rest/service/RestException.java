@@ -4,18 +4,18 @@ public class RestException extends Exception{
 
 	private static final long serialVersionUID = -825184279697358059L;
 	
-	private Integer code;
+	private String code;
 
-	public RestException(Integer code, String msg) {
+	public RestException(String code, String msg) {
 		super(msg);
 		this.code = code;
 	}
 
-	public Integer getCode() {
+	public String getCode() {
 		return code;
 	}
 
-	public void setCode(Integer code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 

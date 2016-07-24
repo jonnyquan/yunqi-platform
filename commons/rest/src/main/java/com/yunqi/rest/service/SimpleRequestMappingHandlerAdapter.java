@@ -3,6 +3,8 @@ package com.yunqi.rest.service;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
@@ -46,7 +48,24 @@ public class SimpleRequestMappingHandlerAdapter extends RequestMappingHandlerAda
      * @param ex
      */
     private RestException processBizException(HandlerMethod handlerMethod, ApiException ex){
-    	return  new RestException(ex.getCode(), ex.getMessage());
+    	
+		Class<?>[] clazzs = handlerMethod.getBeanType().getInterfaces();
+		
+		StringBuffer sb = new StringBuffer();
+		if(clazzs!=null&&clazzs.length>0){
+			Class<?> clazz = clazzs[0];
+			RequestMapping crm = clazz.getAnnotation(RequestMapping.class);
+			String moduleName = "";
+			if(crm!=null && crm.value().length>0) moduleName = crm.value()[0].replace("/", "_").toUpperCase();
+			
+			RequestMapping mrm = AnnotationUtils.findAnnotation(handlerMethod.getMethod(), RequestMapping.class);
+			String matherName = "";
+			if(mrm!=null && mrm.value().length>0) matherName = mrm.value()[0].replace("/", "_").toUpperCase();
+			
+			sb.append(moduleName).append(matherName).append("_").append(ex.getCode());
+		}
+    	
+    	return  new RestException(sb.toString(), ex.getMessage());
     }
 
 }

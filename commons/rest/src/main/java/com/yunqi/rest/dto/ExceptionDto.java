@@ -6,14 +6,14 @@ public class ExceptionDto implements Serializable{
 
 	private static final long serialVersionUID = -5566193307533411706L;
 	
-	private Integer code;
+	private String code;
 	private String msg;
 	private Object data;
 	
-	public Integer getCode() {
+	public String getCode() {
 		return code;
 	}
-	public void setCode(Integer code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 	public String getMsg() {

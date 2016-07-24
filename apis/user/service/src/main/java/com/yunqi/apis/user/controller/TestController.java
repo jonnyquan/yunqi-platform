@@ -51,7 +51,7 @@ public class TestController implements UserTestApi{
 
 	@Override
 	public boolean test7() throws ApiException {
-		throw new ApiException(1, "test exception");
+		throw new ApiException("1", "test exception");
 	}
 
 	@Override

@@ -35,7 +35,7 @@ public class BaseFilter extends GenericFilterBean {
     	
 		String contentType = request.getContentType();
 		if(contentType==null || contentType.trim().toLowerCase().indexOf("application/json")<0){
-			throw new RestException(ExceptionCode.CONTENT_TYPE_ERROR, "Only support application/json content type !");
+			throw new RestException(ExceptionCode.CONTEXT_TYPE_ERROR, "Only support application/json content type !");
 		}
 		
     }
@@ -85,7 +85,7 @@ public class BaseFilter extends GenericFilterBean {
     private void processSystemException(final ServletResponse res, Exception ex){
     	
     	ExceptionDto ed = new ExceptionDto();
-    	ed.setCode(-1);
+    	ed.setCode(ExceptionCode.SYS_ERROR);
     	ed.setMsg(ex.getMessage());
     	
     	ResponseDto rd = new ResponseDto();

@@ -19,10 +19,10 @@ public abstract class BaseController {
     	ed.setMsg(ex.getMessage());
     	
     	if(ex instanceof ApiException){
-    		Integer code = ((ApiException) ex).getCode();
+    		String code = ((ApiException) ex).getCode();
     		ed.setCode(getApiCode() + code);
     	} else {
-    		ed.setCode(-1);
+    		ed.setCode(ExceptionCode.SYS_ERROR);
     	}
  
 		return ed;
