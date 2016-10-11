@@ -5,7 +5,7 @@
 	
 	<groupId>com.yunqi.apis.org</groupId>
 	<artifactId>yunqi-org-service</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>yun qi org service</name>
 	<url>http://bestaone.com</url>
@@ -13,7 +13,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.0.RELEASE</version>
+		<version>2.0.0.BUILD-SNAPSHOT</version>
 		<relativePath/>
 	</parent>
 
@@ -41,13 +41,13 @@
 		<dependency>
 			<groupId>com.yunqi.commons</groupId>
 			<artifactId>yunqi-commons-core</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.yunqi.apis.org</groupId>
 			<artifactId>yunqi-org-api</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>
@@ -154,6 +154,29 @@
 
 	</build>
 
+    <repositories>
+        <repository>
+            <id>spring-snapshots</id>
+            <url>http://repo.spring.io/snapshot</url>
+            <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+        <repository>
+            <id>spring-milestones</id>
+            <url>http://repo.spring.io/milestone</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-snapshots</id>
+            <url>http://repo.spring.io/snapshot</url>
+        </pluginRepository>
+        <pluginRepository>
+            <id>spring-milestones</id>
+            <url>http://repo.spring.io/milestone</url>
+        </pluginRepository>
+    </pluginRepositories>
+	
 	<profiles>
 		<profile>
 			<id>pd</id>

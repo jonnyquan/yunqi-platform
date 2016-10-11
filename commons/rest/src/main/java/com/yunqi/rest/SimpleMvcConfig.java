@@ -3,7 +3,6 @@ package com.yunqi.rest;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.boot.context.embedded.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.util.ClassUtils;
@@ -18,7 +17,6 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
-import com.yunqi.rest.service.BaseFilter;
 import com.yunqi.rest.service.BaseMessageConverter;
 import com.yunqi.rest.service.SimpleHandlerInterceptorAdapter;
 import com.yunqi.rest.service.SimpleHandlerMethodReturnValueHandler;
@@ -71,13 +69,13 @@ public class SimpleMvcConfig extends WebMvcConfigurationSupport {
 		super.addArgumentResolvers(argumentResolvers);
 	}
 
-	@Bean
-	public FilterRegistrationBean myFilterRegistration() {
-        final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-        registrationBean.setFilter(new BaseFilter());
-        registrationBean.addUrlPatterns("/*");
-	    return registrationBean;
-	}
+//	@Bean
+//	public FilterRegistrationBean myFilterRegistration() {
+//        final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+//        registrationBean.setFilter(new BaseFilter());
+//        registrationBean.addUrlPatterns("/*");
+//	    return registrationBean;
+//	}
 	
 	@Override
 	public RequestMappingHandlerAdapter requestMappingHandlerAdapter() {
