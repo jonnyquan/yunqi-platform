@@ -23,6 +23,19 @@ public class UserRmiConfig implements EnvironmentAware{
 		this.rpr = new RelaxedPropertyResolver(env, "remoting.");
 	}
 	
+//	@Autowired
+//	private RestTemplateBuilder restTemplateBuilder;
+//
+//	@Bean(name = "userRestTemplate")
+//	public RestTemplate restTemplate(){
+//		return restTemplateBuilder.rootUri(rpr.getProperty("user.url")).build();
+//	}
+//	
+//	private Object createApi(Class<?> clazz){
+//		RestProxyFactory factory = new RestProxyFactory(restTemplate());
+//		return factory.create(clazz);
+//	}
+	
 	private Object createApi(Class<?> clazz){
 		Object api = null;
 		HessianProxyFactory factory = new HessianProxyFactory();
