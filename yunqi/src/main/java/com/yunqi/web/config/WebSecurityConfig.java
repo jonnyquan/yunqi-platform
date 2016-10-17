@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		//允许所有用户访问”/”和”/home”
-		http.authorizeRequests().antMatchers("/login", "/api/**", "/remoting/**").permitAll()
+		http.authorizeRequests().antMatchers("/login", "/api/**", "/remoting/**", "/test/**").permitAll()
         //其他地址的访问均需验证权限
 		.anyRequest().authenticated().and().formLogin()
 		//指定登录页是”/login”

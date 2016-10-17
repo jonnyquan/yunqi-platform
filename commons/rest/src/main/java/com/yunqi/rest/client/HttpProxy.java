@@ -71,10 +71,14 @@ public class HttpProxy extends HessianProxy{
 				ContentParam cp = ps[i].getAnnotation(ContentParam.class);
 				Object o = args[i];
 				String json = BeanSerializeUtil.convertToJson(o);
-				sbOut.append(" \"" + cp.name() + "\": ").append(json);
+				sbOut.append(" \"" + cp.name() + "\": ").append(json).append(",");
+			}
+			int index = sbOut.lastIndexOf(",");
+			if(index>-1){
+				sbOut.delete(index, index+1);
 			}
 		}
-		sbOut.append("}");
+		sbOut.append(" }");
 		OutputStream out = null;
 		try {
 			out = conn.getOutputStream();

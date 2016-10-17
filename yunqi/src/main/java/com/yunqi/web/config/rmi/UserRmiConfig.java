@@ -12,6 +12,7 @@ import com.caucho.hessian.client.HessianProxyFactory;
 import com.yunqi.apis.user.api.AccountApi;
 import com.yunqi.apis.user.api.ResourceApi;
 import com.yunqi.apis.user.api.RoleApi;
+import com.yunqi.apis.user.api.UserTestApi;
 
 @Configuration
 public class UserRmiConfig implements EnvironmentAware{
@@ -60,6 +61,11 @@ public class UserRmiConfig implements EnvironmentAware{
 	@Bean(name = "resourceApi")
 	public ResourceApi resourceApi() {
 		return (ResourceApi) createApi(ResourceApi.class);
+	}
+	
+	@Bean(name = "userTestApi")
+	public UserTestApi userTestApi() {
+		return (UserTestApi) createApi(UserTestApi.class);
 	}
 
 }

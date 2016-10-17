@@ -68,9 +68,9 @@ public class RestProxy implements InvocationHandler, Serializable{
 				sbOut.append(" \"" + cp.name() + "\": ").append(json).append(",");
 			}
 			int index = sbOut.lastIndexOf(",");
-//			sbOut.replace(sbOut.length()-2, sbOut.length()-1, "");
-			sbOut.delete(index, index+1);
-//			sbOut.setCharAt(sbOut.length()-1, SPC);
+			if(index>-1){
+				sbOut.delete(index, index+1);
+			}
 		}
 		sbOut.append(" }");
 
