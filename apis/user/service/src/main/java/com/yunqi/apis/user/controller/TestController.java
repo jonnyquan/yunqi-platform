@@ -60,4 +60,16 @@ public class TestController implements UserTestApi{
 		System.out.println(x);
 	}
 
+	@Override
+	public AccountDto test9(AccountDto account, Long id){
+		logger.debug("test1");
+    	account.setPassword("asdss");
+		return account;
+	}
+
+	@Override
+	public AccountDto test10(AccountDto account, Long id) throws ApiException{
+		throw new ApiException("1", "test exception");
+	}
+	
 }
