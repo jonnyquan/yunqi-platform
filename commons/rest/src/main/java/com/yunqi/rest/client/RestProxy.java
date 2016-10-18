@@ -28,8 +28,6 @@ public class RestProxy implements InvocationHandler, Serializable{
 
 	private RestTemplate restTemplate;
 	
-	private final static char SPC ='\0';
-	
 	public RestProxy(RestTemplate restTemplate){
 		this.restTemplate = restTemplate;
 	}
@@ -48,15 +46,6 @@ public class RestProxy implements InvocationHandler, Serializable{
 			throw new Exception("can't find api path, please set @RequestMapping at api method.");
 		}
 		String path = mrm.path()[0];
-		
-//        HttpHeaders headers = new HttpHeaders();
-//        MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
-//        headers.setContentType(type);
-//        headers.add("Accept", MediaType.APPLICATION_JSON.toString());
-//        
-//        JSONObject jsonObj = JSONObject.fromObject(args);
-//        
-//        HttpEntity<String> formEntity = new HttpEntity<String>(jsonObj.toString(), headers);
 		
 		StringBuffer sbOut = new StringBuffer("{");
 		Parameter[] ps = method.getParameters();
