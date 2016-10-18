@@ -87,8 +87,12 @@ public class TestController {
 	
 	@ResponseBody
 	@RequestMapping("/test8")
-	public void test8() {
-		userTestApi.test8();
+	public void test8() throws ApiException{
+		try {
+			userTestApi.test8();
+		} catch (ApiException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

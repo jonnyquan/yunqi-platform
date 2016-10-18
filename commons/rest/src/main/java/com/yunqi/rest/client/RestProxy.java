@@ -7,6 +7,7 @@ import java.lang.reflect.Parameter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.web.client.RootUriTemplateHandler;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -16,6 +17,7 @@ import org.springframework.web.client.RestTemplate;
 import com.yunqi.rest.dto.ContentParam;
 import com.yunqi.rest.dto.ExceptionDto;
 import com.yunqi.rest.dto.ResponseState;
+import com.yunqi.rest.service.ApiException;
 import com.yunqi.rest.service.BeanSerializeUtil;
 
 import net.sf.json.JSONObject;
@@ -62,7 +64,10 @@ public class RestProxy implements InvocationHandler, Serializable{
 			}
 		}
 		sbOut.append(" }");
+		
+		RootUriTemplateHandler rootUri = (RootUriTemplateHandler) restTemplate.getUriTemplateHandler();
 
+		logger.debug("url:" + rootUri.getRootUri() + content + path);
 		logger.debug("Request:" + sbOut.toString());
 		
 		HttpHeaders headers =new HttpHeaders();
@@ -73,9 +78,8 @@ public class RestProxy implements InvocationHandler, Serializable{
 		HttpEntity<String> request = new HttpEntity<String>(sbOut.toString(), headers);
 		
 		String r = restTemplate.postForObject(content + path, request, String.class);
+		logger.debug("Response:" + r);
 		
-		logger.debug("url:" + content + path);
-
 		JSONObject jsonObj = JSONObject.fromObject(r);
 		if(jsonObj==null) return null;
 		
@@ -92,7 +96,7 @@ public class RestProxy implements InvocationHandler, Serializable{
         }else{
         	value = BeanSerializeUtil.convertToError(data);
         	ExceptionDto e = (ExceptionDto) value;
-        	throw new Exception(e.getMsg());
+        	throw new ApiException(e.getCode(), e.getMsg());
         }
         
 		return value;

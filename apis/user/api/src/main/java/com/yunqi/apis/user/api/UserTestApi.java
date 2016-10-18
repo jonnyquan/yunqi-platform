@@ -32,7 +32,7 @@ public interface UserTestApi{
 	public boolean test7() throws ApiException;
 	
 	@RequestMapping(path="/test8", method = RequestMethod.POST)
-	public void test8();
+	public void test8() throws ApiException;
 	
 	@RequestMapping(path="/test9", method = RequestMethod.POST)
 	public AccountDto test9(@ContentParam(name="account") AccountDto account, @ContentParam(name="id") Long id);
