@@ -81,6 +81,8 @@ public class SimpleMvcConfig extends WebMvcConfigurationSupport {
 		
 		BaseFilter baseFilter = new BaseFilter();
 		baseFilter.setRedisTemplate(redisTemplate);
+		baseFilter.authorizePath("/**"); //需要认证后才能访问的接口
+		baseFilter.authorizeIgnoringPath("/**", "/token","/test/test1"); //无需认证就可以访问的接口
 		
         final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(baseFilter);

@@ -6,11 +6,14 @@ import java.io.OutputStream;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.util.AntPathMatcher;
+import org.springframework.util.PathMatcher;
 import org.springframework.web.filter.GenericFilterBean;
 
 import com.yunqi.rest.dto.ExceptionDto;
@@ -22,23 +25,35 @@ public class BaseFilter extends GenericFilterBean {
 	private final static String ACCESS_TOKEN_KEY = "accessToken";
 	
 	private StringRedisTemplate redisTemplate;
+	
+	private PathMatcher matcher = new AntPathMatcher();;
+
+	private String[] authorizePath = {};
+
+	private String[] authorizeIgnoringPath = {};
 
     @Override
     public void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain chain) {
     	
-		String accessToken = req.getParameter(ACCESS_TOKEN_KEY);
-		Boolean f = false;
-		if(accessToken!=null){
-			f = redisTemplate.execute(new RedisCallback<Boolean>() {
-				@Override
-				public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
-	                return connection.exists(accessToken.getBytes());
-				}
-	        });
-		}
+    	boolean needAuthorize = needAuthorize((HttpServletRequest) req);
+    	boolean isAuthorize = false;
     	
+    	//需要认证
+    	if(needAuthorize){
+    		String accessToken = req.getParameter(ACCESS_TOKEN_KEY);
+    		if(accessToken!=null){
+    			isAuthorize = redisTemplate.execute(new RedisCallback<Boolean>() {
+    				@Override
+    				public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
+    	                return connection.exists(accessToken.getBytes());
+    				}
+    	        });
+    		}
+    	}
+
         try {
-//        	if(!f) throw new RestException("10000", "认证失败");
+        	//需要认证并且认证失败
+        	if(needAuthorize && !isAuthorize) throw new RestException("10000", "认证失败");
         	check(req, res);
 			chain.doFilter(req, res);
 		} catch (Exception ex) {
@@ -46,7 +61,30 @@ public class BaseFilter extends GenericFilterBean {
 		}
     }
     
-    /**
+    private boolean needAuthorize(HttpServletRequest request) {
+    	String requestPath = request.getServletPath();
+    	boolean needAuthorize = false;
+    	//检测路径是否能够匹配上需要认证的地址列表
+    	for(String p : authorizePath){
+    		if(matcher.match(p, requestPath)){
+    			needAuthorize = true;
+    			break;
+    		}
+    	}
+    	
+    	//匹配上需要认证的路径后，检测是否是忽略的路径
+    	if(needAuthorize){
+    		for(String p : authorizeIgnoringPath){
+    			if(matcher.match(p, requestPath)){
+    				needAuthorize = false;
+    				break;
+    			}
+    		}
+    	}
+		return false;
+	}
+
+	/**
      * 检查数据
      * @param request
      * @param response
@@ -141,6 +179,14 @@ public class BaseFilter extends GenericFilterBean {
     
 	public void setRedisTemplate(StringRedisTemplate redisTemplate) {
 		this.redisTemplate = redisTemplate;
+	}
+
+	public void authorizePath(String... path) {
+		this.authorizePath = path;
+	}
+
+	public void authorizeIgnoringPath(String... path) {
+		this.authorizeIgnoringPath = path;
 	}
 
 }
