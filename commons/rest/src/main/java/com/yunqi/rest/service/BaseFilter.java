@@ -26,10 +26,13 @@ public class BaseFilter extends GenericFilterBean {
 	
 	private StringRedisTemplate redisTemplate;
 	
+	//访问路径匹配器
 	private PathMatcher matcher = new AntPathMatcher();;
 
+	//需要token才能访问的接口
 	private String[] authorizePath = {};
 
+	//不需要token就可以访问的接口
 	private String[] authorizeIgnoringPath = {};
 
     @Override
