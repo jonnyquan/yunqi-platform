@@ -7,6 +7,10 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.filter.GenericFilterBean;
 
 import com.yunqi.rest.dto.ExceptionDto;
@@ -14,10 +18,27 @@ import com.yunqi.rest.dto.ResponseDto;
 import com.yunqi.rest.dto.ResponseState;
 
 public class BaseFilter extends GenericFilterBean {
+	
+	private final static String ACCESS_TOKEN_KEY = "accessToken";
+	
+	private StringRedisTemplate redisTemplate;
 
     @Override
     public void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain chain) {
+    	
+		String accessToken = req.getParameter(ACCESS_TOKEN_KEY);
+		Boolean f = false;
+		if(accessToken!=null){
+			f = redisTemplate.execute(new RedisCallback<Boolean>() {
+				@Override
+				public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
+	                return connection.exists(accessToken.getBytes());
+				}
+	        });
+		}
+    	
         try {
+//        	if(!f) throw new RestException("10000", "认证失败");
         	check(req, res);
 			chain.doFilter(req, res);
 		} catch (Exception ex) {
@@ -117,5 +138,9 @@ public class BaseFilter extends GenericFilterBean {
 			}
 		}
     }
+    
+	public void setRedisTemplate(StringRedisTemplate redisTemplate) {
+		this.redisTemplate = redisTemplate;
+	}
 
 }

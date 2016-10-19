@@ -3,8 +3,10 @@ package com.yunqi.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -30,6 +32,9 @@ public class SimpleMvcConfig extends WebMvcConfigurationSupport {
 	private static final boolean jackson2Present =
 			ClassUtils.isPresent("com.fasterxml.jackson.databind.ObjectMapper", WebMvcConfigurationSupport.class.getClassLoader()) &&
 					ClassUtils.isPresent("com.fasterxml.jackson.core.JsonGenerator", WebMvcConfigurationSupport.class.getClassLoader());
+	
+	@Autowired
+	private StringRedisTemplate redisTemplate;
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -73,9 +78,14 @@ public class SimpleMvcConfig extends WebMvcConfigurationSupport {
 
 	@Bean
 	public FilterRegistrationBean myFilterRegistration() {
+		
+		BaseFilter baseFilter = new BaseFilter();
+		baseFilter.setRedisTemplate(redisTemplate);
+		
         final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-        registrationBean.setFilter(new BaseFilter());
+        registrationBean.setFilter(baseFilter);
         registrationBean.addUrlPatterns("/*");
+        
 	    return registrationBean;
 	}
 	

@@ -1,7 +1,14 @@
 package com.yunqi.apis.user.controller;
 
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.redis.connection.RedisConnection;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yunqi.apis.user.api.UserTestApi;
@@ -12,6 +19,9 @@ import com.yunqi.rest.service.ApiException;
 public class TestController implements UserTestApi{
 	
 	public final static Logger logger = LoggerFactory.getLogger(TestController.class);
+	
+	@Autowired
+	private StringRedisTemplate redisTemplate;
 	
 	@Override
 	public AccountDto test1(AccountDto account){
@@ -45,7 +55,17 @@ public class TestController implements UserTestApi{
 
 	@Override
 	public String test6(Long id, String name) {
-		logger.debug("test6");
+		Boolean f = redisTemplate.execute(new RedisCallback<Boolean>() {
+			@Override
+			public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
+				Date noe = new Date();
+				String key = "test";
+                connection.set(key.getBytes(), noe.toString().getBytes());
+                connection.expire(key.getBytes(), 100000);
+                return true;
+			}
+        });
+		logger.debug("test6 " + f);
 		return "test6";
 	}
 
