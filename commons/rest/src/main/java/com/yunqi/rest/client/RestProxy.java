@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +19,7 @@ import com.yunqi.rest.dto.ContentParam;
 import com.yunqi.rest.dto.ExceptionDto;
 import com.yunqi.rest.dto.ResponseState;
 import com.yunqi.rest.service.ApiException;
+import com.yunqi.rest.service.BaseFilter;
 import com.yunqi.rest.service.BeanSerializeUtil;
 
 import net.sf.json.JSONObject;
@@ -76,8 +78,6 @@ public class RestProxy implements InvocationHandler, Serializable{
 		
 		RootUriTemplateHandler rootUri = (RootUriTemplateHandler) restTemplate.getUriTemplateHandler();
 
-
-		
 		HttpHeaders headers =new HttpHeaders();
 		MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
 		headers.setContentType(type);
@@ -86,16 +86,33 @@ public class RestProxy implements InvocationHandler, Serializable{
 		HttpEntity<String> request = new HttpEntity<String>(sbOut.toString(), headers);
 		
 		String realPath = content + path;
+		String param = "";
 		
 		String accessToken = tokenProvider!=null ? tokenProvider.getAccessToken(): null;
-		if(accessToken!=null){
-			realPath += "?accessToken=" + accessToken;
+		if(accessToken!=null) param = "?accessToken=" + accessToken;
+		
+		Object value = null;
+		try {
+			value = doIt(rootUri.getRootUri(), realPath+param, request, method.getGenericReturnType());
+		} catch (ApiException e) {
+			if(e.getCode().equals(BaseFilter.AUTH_FAILURE) && tokenProvider!=null){
+				accessToken = tokenProvider.sign();
+				if(accessToken!=null) param = "?accessToken=" + accessToken;
+				value = doIt(rootUri.getRootUri(), realPath+param, request, method.getGenericReturnType());
+			} else {
+				throw e;
+			}
 		}
+        
+		return value;
+	}
+	
+	private Object doIt(String serviceUrl, String path, HttpEntity<String> request, Type returnType) throws ApiException{
 		
-		logger.debug("url:" + rootUri.getRootUri() + realPath);
-		logger.debug("Request:" + sbOut.toString());
+		logger.debug("url:" + serviceUrl + path);
+		logger.debug("Request:" + request.getBody());
 		
-		String r = restTemplate.postForObject(realPath, request, String.class);
+		String r = restTemplate.postForObject(path, request, String.class);
 		
 		logger.debug("Response:" + r);
 		
@@ -107,10 +124,10 @@ public class RestProxy implements InvocationHandler, Serializable{
 		
         Object value = null;
         if(ResponseState.SUCCESS.name().equals(state)){
-        	if(method.getGenericReturnType().equals(String.class)){
+        	if(returnType.equals(String.class)){
         		value = data.toString();
         	} else {
-        		value = BeanSerializeUtil.convertToBean(method.getGenericReturnType(), data);
+        		value = BeanSerializeUtil.convertToBean(returnType, data);
         	}
         }else{
         	value = BeanSerializeUtil.convertToError(data);
@@ -118,7 +135,7 @@ public class RestProxy implements InvocationHandler, Serializable{
         	throw new ApiException(e.getCode(), e.getMsg());
         }
         
-		return value;
+        return value;
 	}
 
 }

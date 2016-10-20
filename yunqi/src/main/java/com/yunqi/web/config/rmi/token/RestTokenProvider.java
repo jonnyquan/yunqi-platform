@@ -16,10 +16,12 @@ public class RestTokenProvider implements TokenProvider{
 	private static String accessToken;
 	private static Long expireIn;
 	
-	public void sign(){
+	@Override
+	public String sign(){
 		accessToken = null;
 		expireIn = null;
-		getAccessToken();
+		String token = getAccessToken();
+		return token;
 	}
 	
 	@Override

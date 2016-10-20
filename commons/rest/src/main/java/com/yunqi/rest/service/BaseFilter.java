@@ -24,6 +24,8 @@ import com.yunqi.rest.dto.ResponseState;
 
 public class BaseFilter extends GenericFilterBean {
 	
+	public final static String AUTH_FAILURE = "AUTH_FAILURE";
+	
 	private final static String ACCESS_TOKEN_KEY = "accessToken";
 	
 	private StringRedisTemplate redisTemplate;
@@ -62,7 +64,7 @@ public class BaseFilter extends GenericFilterBean {
 
         try {
         	//需要认证并且认证失败
-        	if(needAuthorize && !isAuthorize) throw new RestException("AUTH_FAILURE","Authentication failure!");
+        	if(needAuthorize && !isAuthorize) throw new RestException(AUTH_FAILURE,"Authentication failure!");
         	check(req, res);
 			chain.doFilter(req, res);
 		} catch (Exception ex) {
