@@ -2,11 +2,13 @@ package com.yunqi.rest.service;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Date;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
@@ -27,8 +29,8 @@ public class BaseFilter extends GenericFilterBean {
 	private StringRedisTemplate redisTemplate;
 	
 	//访问路径匹配器
-	private PathMatcher matcher = new AntPathMatcher();;
-
+	private PathMatcher matcher = new AntPathMatcher();
+	
 	//需要token才能访问的接口
 	private String[] authorizePath = {};
 
@@ -38,6 +40,10 @@ public class BaseFilter extends GenericFilterBean {
     @Override
     public void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain chain) {
     	
+    	Date now = new Date();
+    	HttpServletResponse response= (HttpServletResponse) res;
+    	response.addHeader("TIME", now.getTime() + "");
+
     	boolean needAuthorize = needAuthorize((HttpServletRequest) req);
     	boolean isAuthorize = false;
     	
@@ -56,7 +62,7 @@ public class BaseFilter extends GenericFilterBean {
 
         try {
         	//需要认证并且认证失败
-        	if(needAuthorize && !isAuthorize) throw new RestException("10000", "认证失败");
+        	if(needAuthorize && !isAuthorize) throw new RestException("AUTH_FAILURE","Authentication failure!");
         	check(req, res);
 			chain.doFilter(req, res);
 		} catch (Exception ex) {
@@ -84,7 +90,7 @@ public class BaseFilter extends GenericFilterBean {
     			}
     		}
     	}
-		return false;
+		return needAuthorize;
 	}
 
 	/**
@@ -191,5 +197,5 @@ public class BaseFilter extends GenericFilterBean {
 	public void authorizeIgnoringPath(String... path) {
 		this.authorizeIgnoringPath = path;
 	}
-
+	
 }

@@ -28,10 +28,13 @@ public class RestProxy implements InvocationHandler, Serializable{
 	
 	public final Logger logger = LoggerFactory.getLogger(getClass());
 
-	private RestTemplate restTemplate;
+	private final RestTemplate restTemplate;
 	
-	public RestProxy(RestTemplate restTemplate){
+	private final TokenProvider tokenProvider;
+	
+	public RestProxy(RestTemplate restTemplate, TokenProvider tokenProvider){
 		this.restTemplate = restTemplate;
+		this.tokenProvider = tokenProvider;
 	}
 	
 	@Override
@@ -41,7 +44,13 @@ public class RestProxy implements InvocationHandler, Serializable{
 		if(crm ==null){
 			throw new Exception("can't find api content, please set @RequestMapping at api class.");
 		}
-		String content = crm.value()[0];
+		
+		String content = null;
+		if(crm.value().length>0){
+			content = crm.value()[0];
+		}else{
+			content = "";
+		}
 		
 		RequestMapping mrm = method.getAnnotation(RequestMapping.class);
 		if(mrm ==null){
@@ -56,19 +65,18 @@ public class RestProxy implements InvocationHandler, Serializable{
 				ContentParam cp = ps[i].getAnnotation(ContentParam.class);
 				Object o = args[i];
 				String json = BeanSerializeUtil.convertToJson(o);
-				sbOut.append(" \"" + cp.name() + "\": ").append(json).append(",");
+				sbOut.append("\"" + cp.name() + "\":").append(json).append(",");
 			}
 			int index = sbOut.lastIndexOf(",");
 			if(index>-1){
 				sbOut.delete(index, index+1);
 			}
 		}
-		sbOut.append(" }");
+		sbOut.append("}");
 		
 		RootUriTemplateHandler rootUri = (RootUriTemplateHandler) restTemplate.getUriTemplateHandler();
 
-		logger.debug("url:" + rootUri.getRootUri() + content + path);
-		logger.debug("Request:" + sbOut.toString());
+
 		
 		HttpHeaders headers =new HttpHeaders();
 		MediaType type = MediaType.parseMediaType("application/json; charset=UTF-8");
@@ -77,7 +85,18 @@ public class RestProxy implements InvocationHandler, Serializable{
 		   
 		HttpEntity<String> request = new HttpEntity<String>(sbOut.toString(), headers);
 		
-		String r = restTemplate.postForObject(content + path, request, String.class);
+		String realPath = content + path;
+		
+		String accessToken = tokenProvider!=null ? tokenProvider.getAccessToken(): null;
+		if(accessToken!=null){
+			realPath += "?accessToken=" + accessToken;
+		}
+		
+		logger.debug("url:" + rootUri.getRootUri() + realPath);
+		logger.debug("Request:" + sbOut.toString());
+		
+		String r = restTemplate.postForObject(realPath, request, String.class);
+		
 		logger.debug("Response:" + r);
 		
 		JSONObject jsonObj = JSONObject.fromObject(r);

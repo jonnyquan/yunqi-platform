@@ -3,6 +3,7 @@ package com.yunqi.rest.service;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonEncoding;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JavaType;
@@ -16,6 +17,7 @@ public class BeanSerializeUtil {
 	
 	static{
 		objectMapper = new ObjectMapper();
+		objectMapper.setSerializationInclusion(Include.NON_NULL);  
 		try {
 			objectMapper.getFactory().createGenerator(System.out, JsonEncoding.UTF8);
 		} catch (IOException e) {

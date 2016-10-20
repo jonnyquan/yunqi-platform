@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
@@ -27,7 +28,7 @@ import com.yunqi.rest.service.SimpleHandlerMethodReturnValueHandler;
 import com.yunqi.rest.service.SimpleMethodArgumentsResolver;
 import com.yunqi.rest.service.SimpleRequestMappingHandlerAdapter;
 
-public class SimpleMvcConfig extends WebMvcConfigurationSupport {
+public abstract class SimpleMvcConfig extends WebMvcConfigurationSupport {
 	
 	private static final boolean jackson2Present =
 			ClassUtils.isPresent("com.fasterxml.jackson.databind.ObjectMapper", WebMvcConfigurationSupport.class.getClassLoader()) &&
@@ -35,7 +36,7 @@ public class SimpleMvcConfig extends WebMvcConfigurationSupport {
 	
 	@Autowired
 	private StringRedisTemplate redisTemplate;
-
+	
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/static/**").addResourceLocations("/static/");
@@ -77,12 +78,20 @@ public class SimpleMvcConfig extends WebMvcConfigurationSupport {
 	}
 
 	@Bean
+	public JdkSerializationRedisSerializer jdkSerializationRedisSerializer() {
+		return new JdkSerializationRedisSerializer();
+	}
+	
+	public abstract String[] getAuthorizePath();
+	public abstract String[] getAuthorizeIgnoringPath();
+	
+	@Bean
 	public FilterRegistrationBean myFilterRegistration() {
 		
 		BaseFilter baseFilter = new BaseFilter();
 		baseFilter.setRedisTemplate(redisTemplate);
-		baseFilter.authorizePath("/**"); //需要认证后才能访问的接口
-		baseFilter.authorizeIgnoringPath("/**", "/token","/test/test1"); //无需认证就可以访问的接口
+		baseFilter.authorizePath(getAuthorizePath()); //需要认证后才能访问的接口
+		baseFilter.authorizeIgnoringPath(getAuthorizeIgnoringPath()); //无需认证就可以访问的接口
 		
         final FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(baseFilter);

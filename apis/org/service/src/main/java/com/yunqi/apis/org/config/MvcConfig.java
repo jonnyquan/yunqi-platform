@@ -6,5 +6,15 @@ import com.yunqi.rest.SimpleMvcConfig;
 
 @Configuration
 public class MvcConfig extends SimpleMvcConfig {
+	
+	@Override
+	public String[] getAuthorizePath() {
+		return new String[]{"/**"};
+	}
+
+	@Override
+	public String[] getAuthorizeIgnoringPath() {
+		return new String[]{};
+	}
 
 }

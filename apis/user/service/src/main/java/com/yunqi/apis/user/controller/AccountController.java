@@ -13,15 +13,10 @@ import com.yunqi.rest.dto.ContentParam;
 
 @RestController
 public class AccountController implements AccountApi{
-
+	
 	@Autowired
 	private AccountService service;
-	
-//	public static Account dtoToDomain(AccountDto dto){
-//		if(dto==null) return null;
-//		return null;
-//	}
-//	
+
 	public static AccountDto domainToDto(Account domain){
 		if(domain==null) return null;
 		AccountDto dto = new AccountDto();
@@ -51,5 +46,5 @@ public class AccountController implements AccountApi{
 		
 		return accountDto;
 	}
-	
+
 }
