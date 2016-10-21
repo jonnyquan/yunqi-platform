@@ -40,4 +40,7 @@ public interface UserTestApi{
 	@RequestMapping(path="/test10", method = RequestMethod.POST)
 	public AccountDto test10(@ContentParam(name="account") AccountDto account, @ContentParam(name="id") Long id) throws ApiException;
 	
+	@RequestMapping(path="/test11", method = RequestMethod.POST)
+	public boolean test11();
+	
 }

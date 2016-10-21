@@ -92,4 +92,10 @@ public class TestController implements UserTestApi{
 		throw new ApiException("1", "test exception");
 	}
 	
+	@Override
+	public boolean test11(){
+		redisTemplate.convertAndSend("chat", "Hello from Redis!");
+		return true;
+	}
+	
 }
