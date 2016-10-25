@@ -19,6 +19,7 @@
 		<module>core</module>
 		<module>common</module>
 		<module>rest</module>
+		<module>asyncall</module>
 	</modules>
 	
 </project>
