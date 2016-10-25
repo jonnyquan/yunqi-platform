@@ -16,6 +16,7 @@
 	</properties>
 	
 	<modules>
+		<module>asyn</module>
 		<module>base</module>
 		<module>user</module>
 		<module>org</module>
