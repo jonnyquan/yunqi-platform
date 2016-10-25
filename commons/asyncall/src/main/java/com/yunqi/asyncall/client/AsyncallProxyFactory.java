@@ -7,13 +7,15 @@ public class AsyncallProxyFactory {
 
 	private final ClassLoader _loader;
 	
-	public AsyncallProxyFactory() {
-		this(Thread.currentThread().getContextClassLoader());
+	private final QueueProvider _queueProvider;
+	
+	public AsyncallProxyFactory(QueueProvider queueProvider) {
+		this(Thread.currentThread().getContextClassLoader(), queueProvider);
 	}
-
-
-	public AsyncallProxyFactory(ClassLoader loader) {
+	
+	public AsyncallProxyFactory(ClassLoader loader, QueueProvider queueProvider) {
 		_loader = loader;
+		_queueProvider = queueProvider;
 	}
 
 	public Object create(Class<?> api){
@@ -23,7 +25,7 @@ public class AsyncallProxyFactory {
 	public Object create(Class<?> api, ClassLoader loader) {
 		if (api == null) throw new NullPointerException("api must not be null for HessianProxyFactory.create()");
 		InvocationHandler handler = null;
-		handler = new AsyncallProxy();
+		handler = new AsyncallProxy(_queueProvider);
 		return Proxy.newProxyInstance(loader, new Class[] { api }, handler);
 	}
 

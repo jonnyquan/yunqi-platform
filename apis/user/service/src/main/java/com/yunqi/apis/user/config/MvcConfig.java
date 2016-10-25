@@ -15,7 +15,7 @@ public class MvcConfig extends SimpleMvcConfig {
 
 	@Override
 	public String[] getAuthorizeIgnoringPath() {
-		return new String[]{"/token"};
+		return new String[]{"/token","/**"};
 	}
 
 }
