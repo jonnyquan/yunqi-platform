@@ -12,6 +12,6 @@ public interface QueueProvider {
 	/**
 	 * returnValueBroker：异步调用后，返回值监听的队列的key
 	 */
-	public Object pop(String returnValueBroker);
+	public Object pop(String returnValueBroker, int timeout);
 
 }

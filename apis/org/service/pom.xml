@@ -60,6 +60,12 @@
 			<version>1.0.1-SNAPSHOT</version>
 		</dependency>	
 
+		<dependency>
+			<groupId>com.yunqi.commons</groupId>
+			<artifactId>yunqi-commons-ansycall</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+		</dependency>
+		
 	</dependencies>
 	
 	<!-- 插件配置 -->

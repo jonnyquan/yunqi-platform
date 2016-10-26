@@ -1,5 +1,7 @@
-package com.yunqi.apis.user.asyn;
+package com.yunqi.apis.org.asyn;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
@@ -8,6 +10,7 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 
+import com.yunqi.apis.org.config.BeanConfig;
 import com.yunqi.asyncall.MethodMessage;
 
 public class AsynMethodListener {
@@ -28,6 +31,8 @@ class AsynMethodProcess implements Runnable{
 	
 	public static final String METHOD_BROKER = "asyncall:method:broker";
 	
+	private static final long EXPIRE_TIME = 3600;
+	
 	private StringRedisTemplate redisTemplate;
 	
 	private JdkSerializationRedisSerializer redisSerializer;
@@ -43,14 +48,44 @@ class AsynMethodProcess implements Runnable{
 			@Override
 			public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
 				while(true){
-					List<byte[]> rsbs = connection.bLPop(10000, METHOD_BROKER.getBytes());
+					List<byte[]> rsbs = connection.bLPop(0, METHOD_BROKER.getBytes());
 					MethodMessage mm = (MethodMessage) redisSerializer.deserialize(rsbs.get(1));
-					String returnValueKey = mm.getReturnValueKey();
-					connection.lPush(returnValueKey.getBytes(), redisSerializer.serialize("xx"));
+					byte[] returnValueKeyByte = mm.getReturnValueKey().getBytes();
+					
+					Object returnValue = process(mm);
+					
+					connection.lPush(returnValueKeyByte, redisSerializer.serialize(returnValue));
+					connection.expire(returnValueKeyByte, EXPIRE_TIME);
 				}
 			}
 			
 		});
+	}
+	
+	public Object process(MethodMessage mm){
+		Object bean = BeanConfig.getBean(mm.getClazz());
+
+        Class<?> beanClass = bean.getClass(); 
+		try {
+	        Method m2 = beanClass.getDeclaredMethod(mm.getMethodName(), mm.getParameterTypes()); 
+	        return m2.invoke(bean, mm.getArgs());
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return null;
 	}
 	
 }

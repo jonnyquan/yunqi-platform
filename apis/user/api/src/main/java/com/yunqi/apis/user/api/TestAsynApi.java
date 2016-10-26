@@ -3,15 +3,14 @@ package com.yunqi.apis.user.api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.yunqi.apis.user.api.dto.AccountDto;
 import com.yunqi.rest.dto.ContentParam;
 import com.yunqi.rest.service.ApiException;
 
 @RequestMapping("/testasyn")
-public interface UserTestAsynApi{
+public interface TestAsynApi{
 
-	@RequestMapping(path="/test1", method = RequestMethod.POST)
-	public AccountDto test1(@ContentParam(name="account") AccountDto account);
+//	@RequestMapping(path="/test1", method = RequestMethod.POST)
+//	public AccountDto test1(@ContentParam(name="account") AccountDto account);
 	
 	@RequestMapping(path="/test2", method = RequestMethod.POST)
 	public void test2();
@@ -34,13 +33,13 @@ public interface UserTestAsynApi{
 	@RequestMapping(path="/test8", method = RequestMethod.POST)
 	public void test8() throws ApiException;
 	
-	@RequestMapping(path="/test9", method = RequestMethod.POST)
-	public AccountDto test9(@ContentParam(name="account") AccountDto account, @ContentParam(name="id") Long id);
-	
-	@RequestMapping(path="/test10", method = RequestMethod.POST)
-	public AccountDto test10(@ContentParam(name="account") AccountDto account, @ContentParam(name="id") Long id) throws ApiException;
-	
-	@RequestMapping(path="/test11", method = RequestMethod.POST)
-	public boolean test11();
+//	@RequestMapping(path="/test9", method = RequestMethod.POST)
+//	public AccountDto test9(@ContentParam(name="account") AccountDto account, @ContentParam(name="id") Long id);
+//	
+//	@RequestMapping(path="/test10", method = RequestMethod.POST)
+//	public AccountDto test10(@ContentParam(name="account") AccountDto account, @ContentParam(name="id") Long id) throws ApiException;
+//	
+//	@RequestMapping(path="/test11", method = RequestMethod.POST)
+//	public boolean test11();
 	
 }

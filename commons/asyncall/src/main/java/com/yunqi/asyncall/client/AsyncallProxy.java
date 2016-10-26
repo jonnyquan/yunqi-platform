@@ -5,19 +5,22 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.yunqi.asyncall.MethodMessage;
 
 public class AsyncallProxy implements InvocationHandler, Serializable{
 
 	private static final long serialVersionUID = 5607059789355942804L;
 	
+	//方法调用broker
 	public static final String METHOD_BROKER = "asyncall:method:broker";
 	
+	//返回值broker的前缀
 	private static final String RETURN_VALUE_BROKER_PREFIX = "asyncall:return:broker:";
 	
-	@Autowired
+	//监听返回值得超时时间默认值
+	private static final int RETURN_TIMEOUT = 10;
+	
+	//队列提供器
 	private QueueProvider queueProvider;
 	
 	public AsyncallProxy(QueueProvider queueProvider){
@@ -35,10 +38,9 @@ public class AsyncallProxy implements InvocationHandler, Serializable{
 	 */
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		String returnValueBroker = getReturnValueBroker();
-		MethodMessage mm = new MethodMessage(returnValueBroker, method.getDeclaringClass().getName(), method.getName(), args);
+		MethodMessage mm = new MethodMessage(returnValueBroker, method.getDeclaringClass(), method.getDeclaringClass().getSimpleName(), method.getName(), method.getParameterTypes(), args);
 		this.asynInvoke(METHOD_BROKER, mm);
-		Object value = this.listenReturn(returnValueBroker);
-		System.out.println(value);
+		Object value = this.listenReturn(returnValueBroker, RETURN_TIMEOUT);
 		return value;
 	}
 
@@ -54,8 +56,8 @@ public class AsyncallProxy implements InvocationHandler, Serializable{
 	/**
 	 * 监听接口调用的结果返回队列
 	 */
-	private Object listenReturn(String returnValueBroker) {
-		return queueProvider.pop(returnValueBroker);
+	private Object listenReturn(String returnValueBroker, int timeout) {
+		return queueProvider.pop(returnValueBroker, timeout);
 	}
 
 }

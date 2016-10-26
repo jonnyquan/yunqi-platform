@@ -7,7 +7,7 @@ import com.yunqi.core.id.IdGenerator;
 import com.yunqi.core.id.LongIdGenerator;
 
 @Configuration
-public class BeanConfig {
+public class BeanConfig{
 
 	@Bean(name = "idGenerator")
 	public IdGenerator<Long> idGenerator() throws Exception {
