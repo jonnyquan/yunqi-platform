@@ -10,6 +10,13 @@ public class ReturnMessage implements Serializable{
 	private Object value;
 	private Throwable exception;
 	
+	@Override
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		sb.append(type).append(":").append(value).append(":").append(exception);
+		return sb.toString();
+	}
+	
 	public ReturnValueType getType() {
 		return type;
 	}

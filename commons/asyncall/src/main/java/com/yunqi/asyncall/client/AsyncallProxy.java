@@ -5,11 +5,16 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.util.UUID;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.yunqi.asyncall.MethodMessage;
 import com.yunqi.asyncall.ReturnMessage;
 import com.yunqi.asyncall.ReturnValueType;
 
 public class AsyncallProxy implements InvocationHandler, Serializable{
+	
+	public final Logger logger = LoggerFactory.getLogger(AsyncallProxy.class);
 
 	private static final long serialVersionUID = 5607059789355942804L;
 	
@@ -40,14 +45,17 @@ public class AsyncallProxy implements InvocationHandler, Serializable{
 	 */
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		String returnValueBroker = getReturnValueBroker();
+		
 		MethodMessage mm = new MethodMessage(returnValueBroker, method.getDeclaringClass(), method.getDeclaringClass().getSimpleName(), method.getName(), method.getParameterTypes(), args);
 		this.asynInvoke(METHOD_BROKER, mm);
 		ReturnMessage rm = this.listenReturn(returnValueBroker, RETURN_TIMEOUT);
+		logger.debug("Asyncall call[{}.{}], return[{}]", method.getDeclaringClass().getName(), method.getName(), rm.toString());
 		if(rm.getType().equals(ReturnValueType.SUCESS)){
 			return rm.getValue();
 		}else if(rm.getType().equals(ReturnValueType.EXCEPTION)){
 			throw rm.getException();
 		}
+		
 		return null;
 	}
 

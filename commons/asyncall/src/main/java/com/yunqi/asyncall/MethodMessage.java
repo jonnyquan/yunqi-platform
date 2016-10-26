@@ -12,8 +12,6 @@ public class MethodMessage implements Serializable{
 
 	private String returnValueKey;
 	
-//	private Method method;
-	
 	private Class<?> clazz;
 	
 	private String beanName;
