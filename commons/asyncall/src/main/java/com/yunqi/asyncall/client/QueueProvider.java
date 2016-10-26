@@ -1,6 +1,7 @@
 package com.yunqi.asyncall.client;
 
 import com.yunqi.asyncall.MethodMessage;
+import com.yunqi.asyncall.ReturnMessage;
 
 public interface QueueProvider {
 
@@ -12,6 +13,6 @@ public interface QueueProvider {
 	/**
 	 * returnValueBroker：异步调用后，返回值监听的队列的key
 	 */
-	public Object pop(String returnValueBroker, int timeout);
+	public ReturnMessage pop(String returnValueBroker, int timeout);
 
 }

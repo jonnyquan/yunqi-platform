@@ -12,6 +12,8 @@ import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer
 
 import com.yunqi.apis.org.config.BeanConfig;
 import com.yunqi.asyncall.MethodMessage;
+import com.yunqi.asyncall.ReturnMessage;
+import com.yunqi.asyncall.ReturnValueType;
 
 public class AsynMethodListener {
 
@@ -52,9 +54,9 @@ class AsynMethodProcess implements Runnable{
 					MethodMessage mm = (MethodMessage) redisSerializer.deserialize(rsbs.get(1));
 					byte[] returnValueKeyByte = mm.getReturnValueKey().getBytes();
 					
-					Object returnValue = process(mm);
+					ReturnMessage rm = process(mm);
 					
-					connection.lPush(returnValueKeyByte, redisSerializer.serialize(returnValue));
+					connection.lPush(returnValueKeyByte, redisSerializer.serialize(rm));
 					connection.expire(returnValueKeyByte, EXPIRE_TIME);
 				}
 			}
@@ -62,30 +64,31 @@ class AsynMethodProcess implements Runnable{
 		});
 	}
 	
-	public Object process(MethodMessage mm){
+	public ReturnMessage process(MethodMessage mm){
+		
+		ReturnMessage rm = new ReturnMessage();
+		
 		Object bean = BeanConfig.getBean(mm.getClazz());
-
+		Object returnValue = null;
         Class<?> beanClass = bean.getClass(); 
 		try {
-	        Method m2 = beanClass.getDeclaredMethod(mm.getMethodName(), mm.getParameterTypes()); 
-	        return m2.invoke(bean, mm.getArgs());
+	        Method method = beanClass.getDeclaredMethod(mm.getMethodName(), mm.getParameterTypes()); 
+	        returnValue = method.invoke(bean, mm.getArgs());
+	        rm.setType(ReturnValueType.SUCESS);
+	        rm.setValue(returnValue);
 		} catch (NoSuchMethodException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SecurityException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			rm.setType(ReturnValueType.EXCEPTION);
+			rm.setException(e.getTargetException());
 		} 
-		return null;
+		return rm;
 	}
 	
 }

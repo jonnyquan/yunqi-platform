@@ -19,6 +19,6 @@ public interface OrgTestAsynApi {
 	
 	public boolean test7() throws AsyncallException;
 	
-	public OrgTestAsynDto test8(OrgTestAsynDto dto, Long id);
+	public OrgTestAsynDto test8(OrgTestAsynDto dto, Long id) throws Exception;
 	
 }

@@ -42,12 +42,13 @@ public class TestAsynApi implements OrgTestAsynApi{
 
 	@Override
 	public boolean test7() throws AsyncallException {
-		return false;
+		throw new AsyncallException();
 	}
 
 	@Override
-	public OrgTestAsynDto test8(OrgTestAsynDto dto, Long id) {
-		dto.setName("xaxc");
+	public OrgTestAsynDto test8(OrgTestAsynDto dto, Long id) throws Exception{
+		int x = 1/0;
+		System.out.println(x);
 		return dto;
 	}
 

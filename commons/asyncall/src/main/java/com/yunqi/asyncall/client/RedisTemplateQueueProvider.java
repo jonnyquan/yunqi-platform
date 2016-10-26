@@ -9,6 +9,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 
 import com.yunqi.asyncall.MethodMessage;
+import com.yunqi.asyncall.ReturnMessage;
 
 /**
  * queue提供者，
@@ -45,12 +46,12 @@ public class RedisTemplateQueueProvider implements QueueProvider{
 	 * returnValueBroker：异步调用后，返回值监听的队列的key
 	 */
 	@Override
-	public Object pop(String returnValueBroker, int timeout) {
-		return redisTemplate.execute(new RedisCallback<Object>() {
+	public ReturnMessage pop(String returnValueBroker, int timeout) {
+		return redisTemplate.execute(new RedisCallback<ReturnMessage>() {
 			@Override
-			public Object doInRedis(RedisConnection connection) throws DataAccessException {
+			public ReturnMessage doInRedis(RedisConnection connection) throws DataAccessException {
 				List<byte[]> rsbs = connection.bLPop(timeout, returnValueBroker.getBytes());
-				return redisSerializer.deserialize(rsbs.get(1));
+				return (ReturnMessage) redisSerializer.deserialize(rsbs.get(1));
 			}
 		});
 	}

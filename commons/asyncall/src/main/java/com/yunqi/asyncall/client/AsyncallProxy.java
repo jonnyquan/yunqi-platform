@@ -6,6 +6,8 @@ import java.lang.reflect.Method;
 import java.util.UUID;
 
 import com.yunqi.asyncall.MethodMessage;
+import com.yunqi.asyncall.ReturnMessage;
+import com.yunqi.asyncall.ReturnValueType;
 
 public class AsyncallProxy implements InvocationHandler, Serializable{
 
@@ -40,8 +42,13 @@ public class AsyncallProxy implements InvocationHandler, Serializable{
 		String returnValueBroker = getReturnValueBroker();
 		MethodMessage mm = new MethodMessage(returnValueBroker, method.getDeclaringClass(), method.getDeclaringClass().getSimpleName(), method.getName(), method.getParameterTypes(), args);
 		this.asynInvoke(METHOD_BROKER, mm);
-		Object value = this.listenReturn(returnValueBroker, RETURN_TIMEOUT);
-		return value;
+		ReturnMessage rm = this.listenReturn(returnValueBroker, RETURN_TIMEOUT);
+		if(rm.getType().equals(ReturnValueType.SUCESS)){
+			return rm.getValue();
+		}else if(rm.getType().equals(ReturnValueType.EXCEPTION)){
+			throw rm.getException();
+		}
+		return null;
 	}
 
 	/**
@@ -56,7 +63,7 @@ public class AsyncallProxy implements InvocationHandler, Serializable{
 	/**
 	 * 监听接口调用的结果返回队列
 	 */
-	private Object listenReturn(String returnValueBroker, int timeout) {
+	private ReturnMessage listenReturn(String returnValueBroker, int timeout) {
 		return queueProvider.pop(returnValueBroker, timeout);
 	}
 

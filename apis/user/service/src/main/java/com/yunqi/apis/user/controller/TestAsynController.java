@@ -36,7 +36,7 @@ public class TestAsynController implements TestAsynApi{
 	@Override
 	public void test2() {
 		orgTestAsynApi.test2();
-		System.out.println("");
+		System.out.println(1);
 	}
 
 	@Override
@@ -80,7 +80,11 @@ public class TestAsynController implements TestAsynApi{
 		dto.setId(1L);
 		dto.setRead(true);
 		dto.setName("name");
-		orgTestAsynApi.test8(dto, 12L);
+		try {
+			orgTestAsynApi.test8(dto, 12L);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
