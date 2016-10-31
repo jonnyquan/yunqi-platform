@@ -45,6 +45,8 @@ public class BaseFilter extends GenericFilterBean {
     	Date now = new Date();
     	HttpServletResponse response= (HttpServletResponse) res;
     	response.addHeader("TIME", now.getTime() + "");
+    	
+    	setOrigin(response);
 
     	boolean needAuthorize = needAuthorize((HttpServletRequest) req);
     	boolean isAuthorize = false;
@@ -70,6 +72,14 @@ public class BaseFilter extends GenericFilterBean {
 		} catch (Exception ex) {
 			proceessException(res, ex);
 		}
+    }
+    
+    //几角CORS,跨域请求问题
+    private void setOrigin(HttpServletResponse response){
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.setHeader("Access-Control-Allow-Methods", "*");
+		response.setHeader("Access-Control-Max-Age", "3600");
+		response.setHeader("Access-Control-Allow-Headers", "Content-Type,X-Requested-With,accept,Origin,Access-Control-Request-Method,Access-Control-Request-Headers");
     }
     
     private boolean needAuthorize(HttpServletRequest request) {
