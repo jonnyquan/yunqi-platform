@@ -17,6 +17,12 @@
 
 	<dependencies>
 
+		<dependency>
+			<groupId>com.yunqi.commons</groupId>
+			<artifactId>yunqi-commons-common</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+		</dependency>
+
 	</dependencies>
 	
     <repositories>

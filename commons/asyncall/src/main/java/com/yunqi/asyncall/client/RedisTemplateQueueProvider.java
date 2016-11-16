@@ -50,8 +50,14 @@ public class RedisTemplateQueueProvider implements QueueProvider{
 		return redisTemplate.execute(new RedisCallback<ReturnMessage>() {
 			@Override
 			public ReturnMessage doInRedis(RedisConnection connection) throws DataAccessException {
-				List<byte[]> rsbs = connection.bLPop(timeout, returnValueBroker.getBytes());
-				return (ReturnMessage) redisSerializer.deserialize(rsbs.get(1));
+				List<byte[]> rsbs;
+				try {
+					rsbs = connection.bLPop(timeout, returnValueBroker.getBytes());
+					return (ReturnMessage) redisSerializer.deserialize(rsbs.get(1));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return null;
 			}
 		});
 	}

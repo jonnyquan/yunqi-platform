@@ -2,7 +2,10 @@ package com.yunqi.asyn.api.org;
 
 import com.yunqi.asyn.api.org.dto.OrgTestAsynDto;
 import com.yunqi.asyn.exception.AsyncallException;
+import com.yunqi.common.asyn.AsynApi;
+import com.yunqi.common.asyn.Module;
 
+@AsynApi(module=Module.ORG)
 public interface OrgTestAsynApi {
 
 	public OrgTestAsynDto test1(OrgTestAsynDto dto);

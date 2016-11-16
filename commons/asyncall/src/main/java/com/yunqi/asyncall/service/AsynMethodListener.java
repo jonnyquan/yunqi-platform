@@ -13,14 +13,16 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 
+import com.yunqi.asyncall.AsyncallConfig;
 import com.yunqi.asyncall.MethodMessage;
 import com.yunqi.asyncall.ReturnMessage;
 import com.yunqi.asyncall.ReturnValueType;
+import com.yunqi.common.asyn.Module;
 
 public class AsynMethodListener {
 
-	public AsynMethodListener(ApplicationContext applicationContext, StringRedisTemplate redisTemplate, JdkSerializationRedisSerializer redisSerializer){
-		new Thread(new AsynMethodProcess(applicationContext, redisTemplate, redisSerializer)).start();
+	public AsynMethodListener(ApplicationContext applicationContext, StringRedisTemplate redisTemplate, JdkSerializationRedisSerializer redisSerializer, Module module){
+		new Thread(new AsynMethodProcess(applicationContext, redisTemplate, redisSerializer, module)).start();
 	}
 	
 }
@@ -35,7 +37,7 @@ class AsynMethodProcess implements Runnable{
 	
 	public final Logger logger = LoggerFactory.getLogger(AsynMethodProcess.class);
 	
-	public static final String METHOD_BROKER = "asyncall:method:broker";
+	public String methodBroker;
 	
 	private static final long EXPIRE_TIME = 3600;
 	
@@ -45,10 +47,11 @@ class AsynMethodProcess implements Runnable{
 	
 	private JdkSerializationRedisSerializer redisSerializer;
 	
-	public AsynMethodProcess(ApplicationContext applicationContext, StringRedisTemplate redisTemplate, JdkSerializationRedisSerializer redisSerializer){
+	public AsynMethodProcess(ApplicationContext applicationContext, StringRedisTemplate redisTemplate, JdkSerializationRedisSerializer redisSerializer, Module module){
 		this.applicationContext = applicationContext;
 		this.redisTemplate = redisTemplate;
 		this.redisSerializer = redisSerializer;
+		this.methodBroker = module.name().toLowerCase() + ":" + AsyncallConfig.BROKER_KEY;
 	}
 	
 	@Override
@@ -57,7 +60,7 @@ class AsynMethodProcess implements Runnable{
 			@Override
 			public Boolean doInRedis(RedisConnection connection) throws DataAccessException {
 				while(true){
-					List<byte[]> rsbs = connection.bLPop(0, METHOD_BROKER.getBytes());
+					List<byte[]> rsbs = connection.bLPop(0, methodBroker.getBytes());
 					MethodMessage mm = (MethodMessage) redisSerializer.deserialize(rsbs.get(1));
 					byte[] returnValueKeyByte = mm.getReturnValueKey().getBytes();
 					ReturnMessage rm = process(mm);

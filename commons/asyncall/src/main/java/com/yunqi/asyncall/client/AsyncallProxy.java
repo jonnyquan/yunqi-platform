@@ -8,18 +8,17 @@ import java.util.UUID;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.yunqi.asyncall.AsyncallConfig;
 import com.yunqi.asyncall.MethodMessage;
 import com.yunqi.asyncall.ReturnMessage;
 import com.yunqi.asyncall.ReturnValueType;
+import com.yunqi.common.asyn.AsynApi;
 
 public class AsyncallProxy implements InvocationHandler, Serializable{
 	
 	public final Logger logger = LoggerFactory.getLogger(AsyncallProxy.class);
 
 	private static final long serialVersionUID = 5607059789355942804L;
-	
-	//方法调用broker
-	public static final String METHOD_BROKER = "asyncall:method:broker";
 	
 	//返回值broker的前缀
 	private static final String RETURN_VALUE_BROKER_PREFIX = "asyncall:return:broker:";
@@ -46,10 +45,13 @@ public class AsyncallProxy implements InvocationHandler, Serializable{
 	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 		String returnValueBroker = getReturnValueBroker();
 		
+		AsynApi asyApi = method.getDeclaringClass().getAnnotationsByType(AsynApi.class)[0];
+		String methodBroker = asyApi.module().name().toLowerCase() + ":" + AsyncallConfig.BROKER_KEY;
+		
 		MethodMessage mm = new MethodMessage(returnValueBroker, method.getDeclaringClass(), method.getDeclaringClass().getSimpleName(), method.getName(), method.getParameterTypes(), args);
-		this.asynInvoke(METHOD_BROKER, mm);
+		this.asynInvoke(methodBroker, mm);
 		ReturnMessage rm = this.listenReturn(returnValueBroker, RETURN_TIMEOUT);
-		logger.debug("Asyncall call[{}.{}], return[{}]", method.getDeclaringClass().getName(), method.getName(), rm.toString());
+		logger.debug("Asyncall call[{}.{}], return[{}], exception[{}]", method.getDeclaringClass().getName(), method.getName(), rm.getValue(), rm.getException());
 		if(rm.getType().equals(ReturnValueType.SUCESS)){
 			return rm.getValue();
 		}else if(rm.getType().equals(ReturnValueType.EXCEPTION)){

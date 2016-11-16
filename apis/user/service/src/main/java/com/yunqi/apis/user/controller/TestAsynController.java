@@ -12,7 +12,6 @@ import com.yunqi.asyn.api.org.dto.OrgTestAsynDto;
 import com.yunqi.asyn.exception.AsyncallException;
 import com.yunqi.rest.service.ApiException;
 
-
 @RestController
 public class TestAsynController implements TestAsynApi{
 	
