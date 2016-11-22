@@ -11,12 +11,15 @@ import com.yunqi.asyncall.client.AsyncallProxyFactory;
 import com.yunqi.asyncall.client.QueueProvider;
 import com.yunqi.asyncall.client.RedisTemplateQueueProvider;
 import com.yunqi.asyncall.service.AsynMethodListener;
+import com.yunqi.common.asyn.Module;
 
 /**
  * spring boot项目只需要继承次类，就可以获取异步接口调用的支持，
  * 客户端和服务端都继承这个配置
  */
 public abstract class AsyncallConfig implements ApplicationContextAware {
+	
+	public final static String BROKER_KEY = "asyncall:method:broker";
 
 	//提供对象的序列号工具
 	@Autowired
@@ -54,7 +57,9 @@ public abstract class AsyncallConfig implements ApplicationContextAware {
 	// 不可以多次创建
 	@Bean
 	public AsynMethodListener asynMethodListener() {
-		return new AsynMethodListener(applicationContext, redisTemplate, redisSerializer);
+		return new AsynMethodListener(applicationContext, redisTemplate, redisSerializer, getModule());
 	}
+	
+	public abstract Module getModule();
 
 }

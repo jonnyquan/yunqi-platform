@@ -27,6 +27,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.yunqi.commons</groupId>
+			<artifactId>yunqi-commons-common</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	
     <repositories>
