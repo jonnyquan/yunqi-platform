@@ -26,7 +26,7 @@ public class TokenController implements TokenApi{
 	
 	@Autowired
 	private StringRedisTemplate redisTemplate;
-	
+
 	@Autowired
 	private JdkSerializationRedisSerializer redisSerializer;
 
@@ -38,11 +38,14 @@ public class TokenController implements TokenApi{
 		if(account.getPassword()==null || !account.getPassword().equals(password)) throw new RestException("ACCOUNT_ERROR","Account error!");
 		
 		String accessToken = redisTemplate.execute(new RedisCallback<String>() {
+
+
+
 			@Override
 			public String doInRedis(RedisConnection connection) throws DataAccessException {
 				String accessToken = null;
 
-				synchronized (this) {
+				synchronized (TokenApi.class) {
 					//如果这个账号的token已经存在了，则让其失效
 					byte[] accountToTokenKey = (TokenUtil.ACCOUNT_TO_TOKEN_KEY + account.getId().toString()).getBytes();
 					if(connection.exists(accountToTokenKey)){
