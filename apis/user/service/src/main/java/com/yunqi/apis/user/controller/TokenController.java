@@ -39,8 +39,6 @@ public class TokenController implements TokenApi{
 		
 		String accessToken = redisTemplate.execute(new RedisCallback<String>() {
 
-
-
 			@Override
 			public String doInRedis(RedisConnection connection) throws DataAccessException {
 				String accessToken = null;
