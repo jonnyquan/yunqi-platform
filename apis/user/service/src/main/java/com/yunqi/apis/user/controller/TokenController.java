@@ -40,24 +40,27 @@ public class TokenController implements TokenApi{
 		String accessToken = redisTemplate.execute(new RedisCallback<String>() {
 			@Override
 			public String doInRedis(RedisConnection connection) throws DataAccessException {
-				
-				//如果这个账号的token已经存在了，则让其失效
-				byte[] accountToTokenKey = (TokenUtil.ACCOUNT_TO_TOKEN_KEY + account.getId().toString()).getBytes();
-				if(connection.exists(accountToTokenKey)){
-					//将accessToken对于的缓存数据失效掉
-					connection.expire(connection.get(accountToTokenKey), 0);
+				String accessToken = null;
+
+				synchronized (this) {
+					//如果这个账号的token已经存在了，则让其失效
+					byte[] accountToTokenKey = (TokenUtil.ACCOUNT_TO_TOKEN_KEY + account.getId().toString()).getBytes();
+					if(connection.exists(accountToTokenKey)){
+                        //将accessToken对于的缓存数据失效掉
+                        connection.expire(connection.get(accountToTokenKey), 0);
+                    }
+
+					AuthEntity entity = new AuthEntity();
+					entity.setUserId(account.getUser().getId().toString());
+					entity.setAccountId(account.getId().toString());
+					entity.setAccount(account.getAccountId());
+
+					accessToken = TokenUtil.TOKEY_KEY + TokenUtil.getToke();
+					byte[] key = accessToken.getBytes();
+					connection.setEx(accountToTokenKey, TokenUtil.TOKEY_EXPIRE_TIME, key);
+					connection.setEx(key, TokenUtil.TOKEY_EXPIRE_TIME, redisSerializer.serialize(entity));
 				}
-				
-				AuthEntity entity = new AuthEntity();
-				entity.setUserId(account.getUser().getId().toString());
-				entity.setAccountId(account.getId().toString());
-				entity.setAccount(account.getAccountId());
-				
-				String accessToken = TokenUtil.TOKEY_KEY + TokenUtil.getToke();
-				byte[] key = accessToken.getBytes();
-				connection.setEx(accountToTokenKey, TokenUtil.TOKEY_EXPIRE_TIME, key);
-				connection.setEx(key, TokenUtil.TOKEY_EXPIRE_TIME, redisSerializer.serialize(entity));
-				
+
 				return accessToken;
 			}
 		});
