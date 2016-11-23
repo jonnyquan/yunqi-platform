@@ -2,7 +2,9 @@ package com.yunqi.apis.user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
+@EnableCaching
 @SpringBootApplication(scanBasePackages={"com.yunqi.apis.user", "com.yunqi.rest.service.scan"})
 public class Application{
 	

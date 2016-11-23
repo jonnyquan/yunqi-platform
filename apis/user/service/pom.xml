@@ -65,7 +65,7 @@
 			<artifactId>yunqi-commons-ansycall</artifactId>
 			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
-		
+
 	</dependencies>
 	
 	<!-- 插件配置 -->
@@ -122,8 +122,10 @@
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>2.6</version>
 					<configuration>
+						<!--
 						<locales>${project.build.locales}</locales>
 						<outputEncoding>${project.build.sourceEncoding}</outputEncoding>
+						-->
 						<resources>
 							<resource>
 								<directory>src/main/resources/conf/${package.environment}</directory>

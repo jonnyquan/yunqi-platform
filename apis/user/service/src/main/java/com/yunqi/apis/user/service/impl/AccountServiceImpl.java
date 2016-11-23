@@ -2,6 +2,7 @@ package com.yunqi.apis.user.service.impl;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.yunqi.apis.user.dao.AccountDao;
