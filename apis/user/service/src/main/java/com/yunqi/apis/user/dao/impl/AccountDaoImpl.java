@@ -14,7 +14,7 @@ import com.yunqi.core.dao.GenericDao;
 public class AccountDaoImpl extends GenericDao<Account, ObjectId> implements AccountDao{
 
 	@Override
-	@Cacheable("com.yunqi.apis.user.dao.impl.AccountDaoImpl.findByAccountId")
+	@Cacheable(value="yunqi:dao:AccountDaoImpl.findByAccountId", key="#accountId")
 	public Account findByAccountId(String accountId) {
 		Criteria criatira = Criteria.where("accountId").is(accountId);
 		return mongoTemplate.findOne(new Query(criatira), Account.class);
