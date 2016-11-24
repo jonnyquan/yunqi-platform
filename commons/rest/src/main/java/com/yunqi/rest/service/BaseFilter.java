@@ -71,6 +71,7 @@ public class BaseFilter extends GenericFilterBean {
 			chain.doFilter(req, res);
 		} catch (Exception ex) {
 			proceessException(res, ex);
+			logger.error(ex.getMessage(), ex);
 		}
     }
     

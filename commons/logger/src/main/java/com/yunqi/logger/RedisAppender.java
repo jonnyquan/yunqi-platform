@@ -22,9 +22,10 @@ public class RedisAppender extends ch.qos.logback.core.AppenderBase<ILoggingEven
 	@Override
 	protected void append(ILoggingEvent eventObject) {
 		try {
+			String level = eventObject.getLevel().levelStr.toLowerCase();
 			StringBuilder builder = new StringBuilder();
 			builder.append(layout.doLayout(eventObject));
-			pusher.push(builder.toString());
+			pusher.push(level, builder.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

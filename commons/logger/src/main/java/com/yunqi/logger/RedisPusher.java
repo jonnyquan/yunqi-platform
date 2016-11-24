@@ -18,7 +18,7 @@ public class RedisPusher {
         jedis.auth(auth);
     }
 
-    public void push(String msg){
+    public void push(String type, String msg){
 
         if (null == msg) return;
 
@@ -32,7 +32,7 @@ public class RedisPusher {
             return;
         }
 
-        jedis.publish(channel, msg);
+        jedis.publish(channel + "." + type, msg);
 
     }
 
