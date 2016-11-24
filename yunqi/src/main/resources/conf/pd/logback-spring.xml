@@ -3,7 +3,7 @@
 <configuration>
 	<include resource="org/springframework/boot/logging/logback/base.xml" />
 	<property name="LOG_FILE" value="${catalina.base}/logs/yunqi.log"/>
-	<logger name="com.yunqi" level="DEBUG" />
+	<logger name="com.yunqi" level="INFO" />
 
 	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<encoder>
