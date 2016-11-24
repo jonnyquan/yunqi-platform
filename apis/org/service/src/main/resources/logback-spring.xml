@@ -24,7 +24,7 @@
 			<host>114.215.103.189</host>
 			<port>6379</port>
 			<auth>bestaone</auth>
-			<channel>yunqi.log</channel>
+			<channel>yunqi.log.org</channel>
 		</pusher>
 		<layout class="ch.qos.logback.classic.PatternLayout">
 			<pattern>${FILE_LOG_PATTERN}</pattern>
