@@ -20,6 +20,7 @@
 		<module>common</module>
 		<module>rest</module>
 		<module>asyncall</module>
+		<module>logger</module>
 	</modules>
 	
 </project>

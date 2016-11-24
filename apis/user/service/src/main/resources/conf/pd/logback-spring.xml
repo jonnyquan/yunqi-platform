@@ -19,15 +19,14 @@
 		</triggeringPolicy>
 	</appender>
 
-	<appender name="REDIS" class="com.yunqi.core.log.RedisAppender">
-		<pusher class="com.yunqi.core.log.RedisPusher">
+	<appender name="REDIS" class="com.yunqi.logger.RedisAppender">
+		<pusher class="com.yunqi.logger.RedisPusher">
 			<host>10.165.16.162</host>
 			<port>6379</port>
 			<auth>bestaone</auth>
 			<channel>yunqi.log</channel>
 		</pusher>
 		<layout class="ch.qos.logback.classic.PatternLayout">
-			<!--<pattern>%X{sessionId} %date [%thread] %-5level %logger{80} - %msg%n</pattern>-->
 			<pattern>${FILE_LOG_PATTERN}</pattern>
 		</layout>
 	</appender>

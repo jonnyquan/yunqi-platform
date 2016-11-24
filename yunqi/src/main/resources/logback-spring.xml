@@ -12,7 +12,7 @@
 		<file>${LOG_FILE}</file>
 		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
 			<fileNamePattern>${LOG_FILE}.%i.zip</fileNamePattern>
-		    <minIndex>1</minIndex>   
+		    <minIndex>1</minIndex>
 		    <maxIndex>10</maxIndex>
 		</rollingPolicy>
 		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
@@ -20,9 +20,8 @@
 		</triggeringPolicy>
 	</appender>
 
-<!--
-	<appender name="REDIS" class="com.yunqi.core.log.RedisAppender">
-		<pusher class="com.yunqi.core.log.RedisPusher">
+	<appender name="REDIS" class="com.yunqi.logger.RedisAppender">
+		<pusher class="com.yunqi.logger.RedisPusher">
 			<host>114.215.103.189</host>
 			<port>6379</port>
 			<auth>bestaone</auth>
@@ -36,10 +35,9 @@
 	<appender name="ASYNCMQ" class="ch.qos.logback.classic.AsyncAppender">
 		<appender-ref ref="REDIS" />
 	</appender>
--->
 
 	<root level="INFO">
 		<appender-ref ref="CONSOLE" />
-		<!--<appender-ref ref="ASYNCMQ" />-->
+		<appender-ref ref="ASYNCMQ" />
 	</root>
 </configuration>

@@ -49,6 +49,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.yunqi.commons</groupId>
+			<artifactId>yunqi-commons-logger</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<dependency>
 			<groupId>com.yunqi.apis.org</groupId>
 			<artifactId>yunqi-org-api</artifactId>
 			<version>1.0.1-SNAPSHOT</version>
