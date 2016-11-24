@@ -1,9 +1,5 @@
 package com.yunqi.core.log;
 
-import java.lang.management.ManagementFactory;
-import java.net.InetAddress;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import ch.qos.logback.classic.spi.ILoggingEvent;
 import ch.qos.logback.core.Layout;
 

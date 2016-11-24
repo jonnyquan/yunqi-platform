@@ -2,7 +2,6 @@
 
 <configuration>
 	<include resource="org/springframework/boot/logging/logback/base.xml" />
-	<property name="LOG_FILE" value="yunqi.log"/>
 	<property name="LOG_FILE" value="${catalina.base}/logs/yunqi.log"/>
 	<logger name="com.yunqi" level="DEBUG" />
 
@@ -21,6 +20,7 @@
 		</triggeringPolicy>
 	</appender>
 
+<!--
 	<appender name="REDIS" class="com.yunqi.core.log.RedisAppender">
 		<pusher class="com.yunqi.core.log.RedisPusher">
 			<host>10.165.16.162</host>
@@ -29,7 +29,6 @@
 			<channel>yunqi.log</channel>
 		</pusher>
 		<layout class="ch.qos.logback.classic.PatternLayout">
-			<!--<pattern>%X{sessionId} %date [%thread] %-5level %logger{80} - %msg%n</pattern>-->
 			<pattern>${FILE_LOG_PATTERN}</pattern>
 		</layout>
 	</appender>
@@ -37,9 +36,10 @@
 	<appender name="ASYNCMQ" class="ch.qos.logback.classic.AsyncAppender">
 		<appender-ref ref="REDIS" />
 	</appender>
+-->
 
 	<root level="INFO">
 		<appender-ref ref="CONSOLE" />
-		<appender-ref ref="ASYNCMQ" />
+		<!--<appender-ref ref="ASYNCMQ" />-->
 	</root>
 </configuration>

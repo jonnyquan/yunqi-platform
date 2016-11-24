@@ -2,8 +2,6 @@ package com.yunqi.core.log;
 
 import redis.clients.jedis.Jedis;
 
-import java.io.IOException;
-
 /**
  * Created by bestaone on 2016/11/24.
  */
