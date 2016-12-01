@@ -30,7 +30,7 @@ public class SimpleHandlerInterceptorAdapter extends HandlerInterceptorAdapter{
 	
 	public static String CONTENT_PARAM = "_content_param_";
 	
-	public final Logger logger = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Override
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
@@ -85,7 +85,7 @@ public class SimpleHandlerInterceptorAdapter extends HandlerInterceptorAdapter{
 		
 		String body = sb.toString();
 		
-		logger.debug("body:" + body);
+		logger.info("body:" + body);
 		
 		if(body!=null && body.length()>0){
 			

@@ -28,7 +28,7 @@ public class RestProxy implements InvocationHandler, Serializable{
 
 	private static final long serialVersionUID = 5607059789355942804L;
 	
-	public final Logger logger = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	private final RestTemplate restTemplate;
 	
@@ -109,8 +109,8 @@ public class RestProxy implements InvocationHandler, Serializable{
 	
 	private Object doIt(String serviceUrl, String path, HttpEntity<String> request, Type returnType) throws ApiException{
 		
-		logger.debug("url:" + serviceUrl + path);
-		logger.debug("Request:" + request.getBody());
+		logger.info("url:" + serviceUrl + path);
+		logger.info("Request:" + request.getBody());
 		
 		String r = restTemplate.postForObject(path, request, String.class);
 		

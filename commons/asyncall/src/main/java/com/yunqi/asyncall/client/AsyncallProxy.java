@@ -16,7 +16,7 @@ import com.yunqi.common.asyn.AsynApi;
 
 public class AsyncallProxy implements InvocationHandler, Serializable{
 	
-	public final Logger logger = LoggerFactory.getLogger(AsyncallProxy.class);
+	private final Logger logger = LoggerFactory.getLogger(AsyncallProxy.class);
 
 	private static final long serialVersionUID = 5607059789355942804L;
 	
@@ -51,7 +51,7 @@ public class AsyncallProxy implements InvocationHandler, Serializable{
 		MethodMessage mm = new MethodMessage(returnValueBroker, method.getDeclaringClass(), method.getDeclaringClass().getSimpleName(), method.getName(), method.getParameterTypes(), args);
 		this.asynInvoke(methodBroker, mm);
 		ReturnMessage rm = this.listenReturn(returnValueBroker, RETURN_TIMEOUT);
-		logger.debug("Asyncall call[{}.{}], return[{}], exception[{}]", method.getDeclaringClass().getName(), method.getName(), rm.getValue(), rm.getException());
+		logger.info("Asyncall call[{}.{}], return[{}], exception[{}]", method.getDeclaringClass().getName(), method.getName(), rm.getValue(), rm.getException());
 		if(rm.getType().equals(ReturnValueType.SUCESS)){
 			return rm.getValue();
 		}else if(rm.getType().equals(ReturnValueType.EXCEPTION)){

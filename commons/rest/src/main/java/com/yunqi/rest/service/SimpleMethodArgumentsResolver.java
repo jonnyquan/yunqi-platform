@@ -20,7 +20,7 @@ import com.yunqi.rest.util.ClassUtil;
  */
 public class SimpleMethodArgumentsResolver implements HandlerMethodArgumentResolver {
 	
-	public final Logger logger = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	public boolean supportsParameter(MethodParameter parameter) {
 		return ClassUtil.hasParameterAnnotation(parameter, ContentParam.class);

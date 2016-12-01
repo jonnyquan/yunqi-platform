@@ -92,7 +92,7 @@ public class HttpProxy extends HessianProxy{
 			}
 		}
 		
-		logger.debug("Request:" + sbOut.toString());
+		logger.info("Request:" + sbOut.toString());
 		
 		BufferedReader reader = null;
         StringBuffer sb = new StringBuffer("");
@@ -111,7 +111,7 @@ public class HttpProxy extends HessianProxy{
 			}
 		}
 		
-		logger.debug("Response:" + sb.toString());
+		logger.info("Response:" + sb.toString());
 
 		JSONObject jsonObj = JSONObject.fromObject(sb.toString());
 		if(jsonObj==null) return null;

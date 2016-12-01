@@ -10,7 +10,7 @@ import com.yunqi.rest.dto.ExceptionDto;
 
 public abstract class BaseController {  
 	
-	public final Logger logger = LoggerFactory.getLogger(getClass());
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
     @ExceptionHandler  
     public ExceptionDto exception(HttpServletRequest request, Exception ex) {
