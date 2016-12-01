@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 	<include resource="org/springframework/boot/logging/logback/base.xml" />
+	<conversionRule conversionWord="ip" converterClass="com.yunqi.logger.IpConvert" />
+	<property name="ASYN_LOG_PATTERN" value="%ip [org] %d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
 	<property name="LOG_FILE" value="/org.log"/>
 	<logger name="com.yunqi" level="INFO" />
 	
@@ -27,7 +29,7 @@
 			<channel>yunqi.log.org</channel>
 		</pusher>
 		<layout class="ch.qos.logback.classic.PatternLayout">
-			<pattern>${FILE_LOG_PATTERN}</pattern>
+			<pattern>${ASYN_LOG_PATTERN}</pattern>
 		</layout>
 	</appender>
 
@@ -36,7 +38,6 @@
 	</appender>
 
 	<root level="INFO">
-		<appender-ref ref="CONSOLE" />
 		<appender-ref ref="ASYNCMQ" />
 	</root>
 </configuration>
