@@ -29,7 +29,7 @@
 			<channel>yunqi.log.user</channel>
 		</pusher>
 		<layout class="ch.qos.logback.classic.PatternLayout">
-			<pattern>${FILE_LOG_PATTERN}</pattern>
+			<pattern>${ASYN_LOG_PATTERN}</pattern>
 		</layout>
 	</appender>
 
