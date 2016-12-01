@@ -109,12 +109,12 @@ public class RestProxy implements InvocationHandler, Serializable{
 	
 	private Object doIt(String serviceUrl, String path, HttpEntity<String> request, Type returnType) throws ApiException{
 		
-		logger.info("url:" + serviceUrl + path);
+		logger.info("Url:" + serviceUrl + path);
 		logger.info("Request:" + request.getBody());
 		
 		String r = restTemplate.postForObject(path, request, String.class);
 		
-		logger.debug("Response:" + r);
+		logger.info("Response:" + r);
 		
 		JSONObject jsonObj = JSONObject.fromObject(r);
 		if(jsonObj==null) return null;
