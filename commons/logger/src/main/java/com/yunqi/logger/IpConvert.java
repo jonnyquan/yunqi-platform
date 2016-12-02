@@ -8,7 +8,6 @@ import java.net.UnknownHostException;
 
 public class IpConvert extends ClassicConverter {
 
-    private final static int LENGTH = 15;
     private static String ip;
 
     @Override
@@ -16,13 +15,7 @@ public class IpConvert extends ClassicConverter {
         if(ip==null){
             try {
                 InetAddress inetAddress = InetAddress.getLocalHost();
-                StringBuffer sb = new StringBuffer(inetAddress.getHostAddress());
-                int ipLen = sb.length();
-                while (ipLen < LENGTH) {
-                    sb.append(" ");
-                    ipLen = sb.length();
-                }
-                ip = sb.toString();
+                ip = inetAddress.getHostAddress();
             } catch (UnknownHostException e) {
                 e.printStackTrace();
             }
