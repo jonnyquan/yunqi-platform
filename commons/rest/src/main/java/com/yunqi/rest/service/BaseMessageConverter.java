@@ -3,6 +3,8 @@ package com.yunqi.rest.service;
 import java.io.IOException;
 import java.lang.reflect.Type;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpOutputMessage;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageNotWritableException;
@@ -22,6 +24,8 @@ import com.yunqi.rest.dto.ResponseState;
  * @author bestaone
  */
 public class BaseMessageConverter extends MappingJackson2HttpMessageConverter{
+
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 
 	public BaseMessageConverter() {
 		ObjectMapper objectMapper = new ObjectMapper();
@@ -63,7 +67,10 @@ public class BaseMessageConverter extends MappingJackson2HttpMessageConverter{
 		}
 		
 		super.writeInternal(rd, type, outputMessage);
-		
+
+		String json = BeanSerializeUtil.convertToJson(rd);
+		logger.info("Response:{}", json);
+
 	}
 
 }

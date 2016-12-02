@@ -10,6 +10,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisCallback;
@@ -23,6 +25,8 @@ import com.yunqi.rest.dto.ResponseDto;
 import com.yunqi.rest.dto.ResponseState;
 
 public class BaseFilter extends GenericFilterBean {
+
+	private final Logger logger = LoggerFactory.getLogger(getClass());
 	
 	public final static String AUTH_FAILURE = "AUTH_FAILURE";
 	
@@ -188,6 +192,7 @@ public class BaseFilter extends GenericFilterBean {
 			out = res.getOutputStream();
 			out.write(json.getBytes());
 			out.flush();
+			logger.info("Response:{}", json);
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {
