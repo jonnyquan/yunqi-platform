@@ -1,5 +1,7 @@
 package com.yunqi.apis.user.controller;
 
+import com.yunqi.rest.service.ApiException;
+import com.yunqi.rest.service.ExceptionCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -32,10 +34,10 @@ public class AccountController implements AccountApi{
 	}
 
 	@Override
-	public AccountDto findByAccountId(@ContentParam(name="accountId") String accountId) {
+	public AccountDto findByAccountId(@ContentParam(name="accountId") String accountId) throws ApiException {
 		
 		Account account = service.findByAccountId(accountId);
-		if(account==null) return null;
+		if(account==null) throw new ApiException(ExceptionCode.ACCOUNT_ERROR, "account error");
 		
 		AccountDto accountDto = AccountController.domainToDto(account);
 

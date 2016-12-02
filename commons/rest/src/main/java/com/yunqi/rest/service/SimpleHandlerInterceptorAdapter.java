@@ -84,7 +84,7 @@ public class SimpleHandlerInterceptorAdapter extends HandlerInterceptorAdapter{
 		}
 		
 		String body = sb.toString();
-		logger.info("Url:{}", request.getRequestURL().toString() + "?" + request.getQueryString()!=null?request.getQueryString():"");
+		logger.info("Url:{}{}", request.getRequestURL().toString(), request.getQueryString()!=null?"?"+request.getQueryString():"");
 		logger.info("Request:{}", body);
 		
 		if(body!=null && body.length()>0){

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
+import com.yunqi.rest.service.ApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,13 @@ public class SimpleUserDetailsService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String accountId) throws UsernameNotFoundException {
-		
-		AccountDto account = accountApi.findByAccountId(accountId);
+
+		AccountDto account = null;
+		try {
+			account = accountApi.findByAccountId(accountId);
+		} catch (ApiException e) {
+			e.printStackTrace();
+		}
 		Set<RoleDto> roles = account.getUser().getRoles();
 		Collection<GrantedAuthority> auths = new ArrayList<>();
 		for(RoleDto r : roles){

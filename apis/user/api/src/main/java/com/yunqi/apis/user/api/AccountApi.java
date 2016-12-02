@@ -1,5 +1,6 @@
 package com.yunqi.apis.user.api;
 
+import com.yunqi.rest.service.ApiException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -10,6 +11,6 @@ import com.yunqi.rest.dto.ContentParam;
 public interface AccountApi{
 
 	@RequestMapping(path="/findByAccountId", method = RequestMethod.POST)
-	public AccountDto findByAccountId(@ContentParam(name = "accountId") String accountId);
+	public AccountDto findByAccountId(@ContentParam(name = "accountId") String accountId) throws ApiException;
 
 }
