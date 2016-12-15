@@ -3,9 +3,9 @@ package com.yunqi.apis.user.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.earven.asyncall.AsyncallConfig;
+import com.earven.asyncall.service.Module;
 import com.yunqi.asyn.api.org.OrgTestAsynApi;
-import com.yunqi.asyncall.AsyncallConfig;
-import com.yunqi.asyncall.service.Module;
 
 @Configuration
 public class AsynApiConfig extends AsyncallConfig{

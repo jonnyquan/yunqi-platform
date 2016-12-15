@@ -63,12 +63,6 @@
 			<groupId>com.yunqi.asyn.api</groupId>
 			<artifactId>yunqi-asyn-api</artifactId>
 			<version>1.0.1-SNAPSHOT</version>
-		</dependency>	
-
-		<dependency>
-			<groupId>com.yunqi.commons</groupId>
-			<artifactId>yunqi-commons-asyncall</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 		
 	</dependencies>

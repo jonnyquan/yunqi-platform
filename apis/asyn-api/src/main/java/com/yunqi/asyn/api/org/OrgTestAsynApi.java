@@ -1,9 +1,9 @@
 package com.yunqi.asyn.api.org;
 
+import com.earven.asyncall.service.AsynApi;
+import com.earven.asyncall.service.Module;
 import com.yunqi.asyn.api.org.dto.OrgTestAsynDto;
 import com.yunqi.asyn.exception.AsyncallException;
-import com.yunqi.asyncall.service.AsynApi;
-import com.yunqi.asyncall.service.Module;
 
 @AsynApi(module=Module.ORG)
 public interface OrgTestAsynApi {

@@ -18,9 +18,9 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>com.yunqi.commons</groupId>
-			<artifactId>yunqi-commons-asyncall</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<groupId>com.earven</groupId>
+			<artifactId>asyncall</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>
