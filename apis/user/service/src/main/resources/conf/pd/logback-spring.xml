@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 	<include resource="org/springframework/boot/logging/logback/base.xml" />
-	<conversionRule conversionWord="ip" converterClass="com.yunqi.logger.IpConvert" />
+	<conversionRule conversionWord="ip" converterClass="com.earven.asynlogger.IpConvert" />
 	<property name="ASYN_LOG_PATTERN" value="%ip [user] %d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
 	<property name="LOG_FILE" value="/user.log"/>
 	<logger name="com.yunqi" level="INFO" />
@@ -21,8 +21,8 @@
 		</triggeringPolicy>
 	</appender>
 
-	<appender name="REDIS" class="com.yunqi.logger.RedisAppender">
-		<pusher class="com.yunqi.logger.RedisPusher">
+	<appender name="REDIS" class="com.earven.asynlogger.RedisAppender">
+		<pusher class="com.earven.asynlogger.RedisPusher">
 			<host>10.165.16.162</host>
 			<port>6379</port>
 			<auth>bestaone</auth>
