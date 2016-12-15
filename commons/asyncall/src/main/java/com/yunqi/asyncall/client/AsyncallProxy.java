@@ -12,7 +12,7 @@ import com.yunqi.asyncall.AsyncallConfig;
 import com.yunqi.asyncall.MethodMessage;
 import com.yunqi.asyncall.ReturnMessage;
 import com.yunqi.asyncall.ReturnValueType;
-import com.yunqi.common.asyn.AsynApi;
+import com.yunqi.asyncall.service.AsynApi;
 
 public class AsyncallProxy implements InvocationHandler, Serializable{
 	

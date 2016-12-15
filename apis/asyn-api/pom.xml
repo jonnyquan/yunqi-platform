@@ -19,7 +19,7 @@
 
 		<dependency>
 			<groupId>com.yunqi.commons</groupId>
-			<artifactId>yunqi-commons-common</artifactId>
+			<artifactId>yunqi-commons-asyncall</artifactId>
 			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 

@@ -1,4 +1,4 @@
-package com.yunqi.common.asyn;
+package com.yunqi.asyncall.service;
 
 public enum Module {
 	

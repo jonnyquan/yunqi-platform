@@ -1,4 +1,4 @@
-package com.yunqi.common.asyn;
+package com.yunqi.asyncall.service;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

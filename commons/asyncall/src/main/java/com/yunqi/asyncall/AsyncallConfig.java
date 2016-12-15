@@ -11,7 +11,7 @@ import com.yunqi.asyncall.client.AsyncallProxyFactory;
 import com.yunqi.asyncall.client.QueueProvider;
 import com.yunqi.asyncall.client.RedisTemplateQueueProvider;
 import com.yunqi.asyncall.service.AsynMethodListener;
-import com.yunqi.common.asyn.Module;
+import com.yunqi.asyncall.service.Module;
 
 /**
  * spring boot项目只需要继承次类，就可以获取异步接口调用的支持，

@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.yunqi.asyn.api.org.OrgTestAsynApi;
 import com.yunqi.asyncall.AsyncallConfig;
-import com.yunqi.common.asyn.Module;
+import com.yunqi.asyncall.service.Module;
 
 @Configuration
 public class AsynApiConfig extends AsyncallConfig{
