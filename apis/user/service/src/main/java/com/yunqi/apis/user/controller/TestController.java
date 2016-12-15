@@ -11,9 +11,9 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.earven.rest.service.ApiException;
 import com.yunqi.apis.user.api.UserTestApi;
 import com.yunqi.apis.user.api.dto.AccountDto;
-import com.yunqi.rest.service.ApiException;
 
 @RestController
 public class TestController implements UserTestApi{

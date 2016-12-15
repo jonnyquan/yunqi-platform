@@ -9,8 +9,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import org.springframework.web.client.RestTemplate;
 
+import com.earven.rest.client.RestProxyFactory;
 import com.yunqi.apis.user.api.TokenApi;
-import com.yunqi.rest.client.RestProxyFactory;
 import com.yunqi.web.config.rmi.token.RestTokenProvider;
 
 @Configuration

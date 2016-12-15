@@ -3,9 +3,9 @@ package com.yunqi.apis.user.api;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.earven.rest.dto.ContentParam;
+import com.earven.rest.service.RestException;
 import com.yunqi.apis.user.api.dto.TokenDto;
-import com.yunqi.rest.dto.ContentParam;
-import com.yunqi.rest.service.RestException;
 
 @RequestMapping
 public interface TokenApi{

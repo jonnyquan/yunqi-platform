@@ -7,11 +7,11 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.earven.rest.dto.ContentParam;
 import com.yunqi.apis.user.api.RoleApi;
 import com.yunqi.apis.user.api.dto.RoleDto;
 import com.yunqi.apis.user.domain.Role;
 import com.yunqi.apis.user.service.RoleService;
-import com.yunqi.rest.dto.ContentParam;
 
 @RestController
 public class RoleController implements RoleApi{

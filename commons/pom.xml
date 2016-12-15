@@ -18,7 +18,6 @@
 	<modules>
 		<module>core</module>
 		<module>common</module>
-		<module>rest</module>
 	</modules>
 	
 </project>

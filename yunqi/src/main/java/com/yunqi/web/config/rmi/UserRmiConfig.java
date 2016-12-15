@@ -5,11 +5,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
+import com.earven.rest.client.RestProxyFactory;
 import com.yunqi.apis.user.api.AccountApi;
 import com.yunqi.apis.user.api.ResourceApi;
 import com.yunqi.apis.user.api.RoleApi;
 import com.yunqi.apis.user.api.UserTestApi;
-import com.yunqi.rest.client.RestProxyFactory;
 import com.yunqi.web.config.rmi.token.RestTokenProvider;
 
 @Configuration

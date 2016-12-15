@@ -2,10 +2,10 @@ package com.yunqi.web.config.rmi.token;
 
 import java.util.Date;
 
+import com.earven.rest.client.TokenProvider;
+import com.earven.rest.service.RestException;
 import com.yunqi.apis.user.api.TokenApi;
 import com.yunqi.apis.user.api.dto.TokenDto;
-import com.yunqi.rest.client.TokenProvider;
-import com.yunqi.rest.service.RestException;
 
 public class RestTokenProvider implements TokenProvider{
 	

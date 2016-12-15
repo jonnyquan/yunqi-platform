@@ -2,7 +2,7 @@ package com.yunqi.apis.org.config;
 
 import org.springframework.context.annotation.Configuration;
 
-import com.yunqi.rest.SimpleMvcConfig;
+import com.earven.rest.SimpleMvcConfig;
 
 @Configuration
 public class MvcConfig extends SimpleMvcConfig {

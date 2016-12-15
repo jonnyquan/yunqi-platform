@@ -5,9 +5,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
+import com.earven.rest.client.RestProxyFactory;
+import com.earven.rest.client.TokenProvider;
 import com.yunqi.apis.org.api.OrgTestApi;
-import com.yunqi.rest.client.RestProxyFactory;
-import com.yunqi.rest.client.TokenProvider;
 
 @Configuration
 public class OrgRmiConfig {

@@ -1,11 +1,11 @@
 package com.yunqi.apis.user.api;
 
-import com.yunqi.rest.service.ApiException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.earven.rest.dto.ContentParam;
+import com.earven.rest.service.ApiException;
 import com.yunqi.apis.user.api.dto.AccountDto;
-import com.yunqi.rest.dto.ContentParam;
 
 @RequestMapping("/account")
 public interface AccountApi{

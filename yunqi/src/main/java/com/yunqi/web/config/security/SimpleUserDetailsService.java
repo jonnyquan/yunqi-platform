@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
-import com.yunqi.rest.service.ApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import com.earven.rest.service.ApiException;
 import com.yunqi.apis.user.api.AccountApi;
 import com.yunqi.apis.user.api.dto.AccountDto;
 import com.yunqi.apis.user.api.dto.RoleDto;

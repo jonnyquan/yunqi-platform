@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.earven.rest.service.ApiException;
 import com.yunqi.apis.user.api.UserTestApi;
 import com.yunqi.apis.user.api.dto.AccountDto;
-import com.yunqi.rest.service.ApiException;
 
 @Controller
 @RequestMapping("/test")

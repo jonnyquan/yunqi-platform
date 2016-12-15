@@ -10,13 +10,13 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.earven.rest.service.AuthEntity;
+import com.earven.rest.service.RestException;
+import com.earven.rest.util.TokenUtil;
 import com.yunqi.apis.user.api.TokenApi;
 import com.yunqi.apis.user.api.dto.TokenDto;
 import com.yunqi.apis.user.domain.Account;
 import com.yunqi.apis.user.service.AccountService;
-import com.yunqi.rest.service.AuthEntity;
-import com.yunqi.rest.service.RestException;
-import com.yunqi.rest.util.TokenUtil;
 
 @RestController
 public class TokenController implements TokenApi{

@@ -1,9 +1,6 @@
 package com.yunqi.apis.org.api;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import com.yunqi.rest.dto.ContentParam;
 
 @RequestMapping("/test")
 public interface OrgTestApi{
