@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	
 	<groupId>com.yunqi.commons</groupId>
-	<artifactId>yunqi-commons-ansycall</artifactId>
+	<artifactId>yunqi-commons-asyncall</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>yun qi commons asyncall</name>
