@@ -28,6 +28,7 @@
 			<port>6379</port>
 			<password>bestaone</password>
 			<timeOut>3000</timeOut>
+			<bufferSize>10</bufferSize>
 			<channel>yunqi.log.web</channel>
 		</pusher>
 		<layout class="ch.qos.logback.classic.PatternLayout">
