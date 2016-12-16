@@ -27,9 +27,6 @@
 			<host>114.215.103.189</host>
 			<port>6379</port>
 			<password>bestaone</password>
-			<database>0</database>
-			<maxTotal>50</maxTotal>
-			<maxIdle>3</maxIdle>
 			<timeOut>3000</timeOut>
 			<channel>yunqi.log.web</channel>
 		</pusher>
