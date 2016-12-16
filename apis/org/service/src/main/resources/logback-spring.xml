@@ -25,7 +25,7 @@
 		<pusher class="com.earven.asynlogger.RedisPusher">
 			<host>114.215.103.189</host>
 			<port>6379</port>
-			<auth>bestaone</auth>
+			<password>bestaone</password>
 			<database>0</database>
 			<maxTotal>50</maxTotal>
 			<maxIdle>3</maxIdle>
