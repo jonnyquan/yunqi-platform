@@ -2,6 +2,7 @@ package com.yunqi.apis.user.controller;
 
 import java.util.Date;
 
+import com.earven.rest.service.RestView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,5 +98,13 @@ public class TestController implements UserTestApi{
 		redisTemplate.convertAndSend("chat", "Hello from Redis!");
 		return true;
 	}
-	
+
+	@Override
+	public AccountDto test12() {
+		AccountDto account = new AccountDto();
+		account.setAccountId("test");
+		account.setPassword("asdss");
+		return account;
+	}
+
 }

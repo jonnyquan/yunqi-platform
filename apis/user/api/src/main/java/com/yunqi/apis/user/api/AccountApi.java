@@ -1,5 +1,6 @@
 package com.yunqi.apis.user.api;
 
+import com.earven.rest.service.RestView;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -10,6 +11,7 @@ import com.yunqi.apis.user.api.dto.AccountDto;
 @RequestMapping("/account")
 public interface AccountApi{
 
+	@RestView
 	@RequestMapping(path="/findByAccountId", method = RequestMethod.POST)
 	public AccountDto findByAccountId(@ContentParam(name = "accountId") String accountId) throws ApiException;
 
