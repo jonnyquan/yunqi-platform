@@ -5,7 +5,7 @@
 	
 	<groupId>com.yunqi</groupId>
 	<artifactId>yunqi-platform</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>yun qi platform</name>
 	<description>YUN QI PLATFORM</description>
@@ -20,11 +20,13 @@
 		<main.basedir>${basedir}/..</main.basedir>
 		<java.version>1.8</java.version>
 	</properties>
-	
+
 	<modules>
+		<module>cloud</module>
 		<module>commons</module>
+		<module>micros</module>
 		<module>apis</module>
-		<module>yunqi</module>
+		<module>modules</module>
 	</modules>
 	
 </project>

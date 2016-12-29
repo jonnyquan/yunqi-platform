@@ -3,21 +3,21 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 	
-	<groupId>com.yunqi</groupId>
+	<groupId>com.yunqi.commons</groupId>
 	<artifactId>yunqi-commons</artifactId>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>yun qi commons</name>
 	<url>http://bestaone.com</url>
-
+	
 	<properties>
 		<main.basedir>${basedir}/..</main.basedir>
 		<java.version>1.8</java.version>
 	</properties>
-	
+
 	<modules>
-		<module>core</module>
-		<module>common</module>
+		<module>commons-common</module>
+		<module>commons-core</module>
 	</modules>
 	
 </project>
