@@ -5,7 +5,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.config.server.EnableConfigServer;
 
 @EnableConfigServer
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages={"com.yunqi.cloud.config"})
 public class Application {
 
     public static void main(String[] args) {

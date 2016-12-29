@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient("user-service")
-@RequestMapping("/user")
 public interface UserApi {
 
     @RequestMapping(method = RequestMethod.GET, value = "/add")

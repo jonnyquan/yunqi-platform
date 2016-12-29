@@ -5,7 +5,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 @EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages={"com.yunqi.user", "com.yunqi.api.user"})
+@SpringBootApplication(scanBasePackages={"com.yunqi.user"})
 public class Application {
 
     public static void main(String[] args) {

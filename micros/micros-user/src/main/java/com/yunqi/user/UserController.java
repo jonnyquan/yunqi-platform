@@ -18,6 +18,7 @@ public class UserController implements UserApi{
     @Autowired
     private DiscoveryClient client;
 
+    @Override
     @RequestMapping(value = "/add" ,method = RequestMethod.GET)
     public Integer add(@RequestParam Integer a, @RequestParam Integer b) {
         ServiceInstance instance = client.getLocalServiceInstance();
