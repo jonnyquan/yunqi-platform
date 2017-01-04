@@ -104,6 +104,16 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-resources-plugin</artifactId>
 					<version>2.6</version>
+					<configuration>
+						<resources>
+							<resource>
+								<directory>src/main/resources/conf/${package.environment}</directory>
+							</resource>
+							<resource>
+								<directory>src/main/resources</directory>
+							</resource>
+						</resources>
+					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
@@ -114,6 +124,33 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>pd</id>
+			<properties>
+				<package.environment>pd</package.environment>
+				<test.skip>true</test.skip>
+			</properties>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<package.environment>dev</package.environment>
+				<test.skip>true</test.skip>
+			</properties>
+		</profile>
+		<profile>
+			<id>default</id>
+			<properties>
+				<package.environment>.</package.environment>
+				<test.skip>true</test.skip>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+	</profiles>
 
 	<pluginRepositories>
 		<pluginRepository>
